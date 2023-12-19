@@ -1,0 +1,25 @@
+server:
+  servlet:
+    contextPath: /api
+
+spring:
+  datasource:
+    driver-class-name: org.hsqldb.jdbc.JDBCDriver
+    url: jdbc:hsqldb:file:db\moviestoredb
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+kinopoisk:
+  x-api-key: ee97857e-9b91-4df5-b64f-576965097621
+  url: https://kinopoiskapiunofficial.tech/api/v2.2/films
+
+logging:
+  level:
+    root: info
+    ru:
+      home:
+        moviestore: debug
+
