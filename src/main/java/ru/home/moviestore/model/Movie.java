@@ -1,13 +1,17 @@
 package ru.home.moviestore.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.util.Set;
 
+@Data
+@Builder
+@NoArgsConstructor
 @Entity
-@Getter
 public class Movie {
     public enum State {
         SEEN, PLANNED, LEFT;
@@ -39,7 +43,7 @@ public class Movie {
     private Set<Country> countries;
     @ToString.Exclude
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "MOVIE_PERSON", joinColumns = {@JoinColumn(name = "MOVIE_ID")}, inverseJoinColumns = {@JoinColumn(name = "ID")})
+    @JoinTable(name = "MOVIE_PERSON", joinColumns = {@JoinColumn(name = "MOVIE_ID")}, inverseJoinColumns = {@JoinColumn(name = "ID"), @JoinColumn(name = "ROLE")})
     private Set<Person> persons;
     @ToString.Exclude
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)

@@ -1,0 +1,24 @@
+package ru.home.moviestore.dto;
+
+import lombok.Builder;
+import lombok.Data;
+
+import java.util.Map;
+import java.util.Set;
+
+@Data
+@Builder
+public class MovieDto {
+    private Long id;
+    private String title;
+    private String originTitle;
+    private Integer externalRating;
+    private Integer internalRating;
+    private Integer year;
+    private String state;
+    private Integer duration;
+    private Boolean serial;
+    private Set<String> tags;
+    private Set<String> countries;
+    private Map<String, PersonDto> persons;
+}

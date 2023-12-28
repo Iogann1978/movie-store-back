@@ -1,11 +1,15 @@
 package ru.home.moviestore.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+@Data
+@Builder
+@NoArgsConstructor
 @Entity
-@Getter
 public class Descript {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

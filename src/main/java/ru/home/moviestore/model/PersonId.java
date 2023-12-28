@@ -7,8 +7,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class PersonId implements Serializable {
     public enum Role {
-        ACTOR, DIRECTOR
+        ACTOR, DIRECTOR, VOICE
     }
-    private String name;
+    private Long id;
     private Role role;
 }
