@@ -18,7 +18,6 @@ public class Movie {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(nullable = false)
     private String title;
@@ -41,10 +40,6 @@ public class Movie {
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "MOVIE_COUNTRY", joinColumns = {@JoinColumn(name = "MOVIE_ID")}, inverseJoinColumns = {@JoinColumn(name = "NAME")})
     private Set<Country> countries;
-    @ToString.Exclude
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "MOVIE_PERSON", joinColumns = {@JoinColumn(name = "MOVIE_ID")}, inverseJoinColumns = {@JoinColumn(name = "ID"), @JoinColumn(name = "ROLE")})
-    private Set<Person> persons;
     @ToString.Exclude
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<Descript> descripts;

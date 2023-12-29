@@ -7,10 +7,16 @@ import ru.home.moviestore.model.Person;
 @UtilityClass
 public class PersonMapper {
     public Person dtoToEntity(PersonDto dto) {
-        return null;
+        return Person.builder()
+                .id(dto.getId())
+                .name(dto.getName())
+                .build();
     }
 
     public PersonDto entityToDto(Person entity) {
-        return null;
+        return PersonDto.builder()
+                .id(entity.getId())
+                .name(entity.getName())
+                .build();
     }
 }

@@ -3,7 +3,6 @@ package ru.home.moviestore.dto;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.Map;
 import java.util.Set;
 
 @Data
@@ -20,5 +19,4 @@ public class MovieDto {
     private Boolean serial;
     private Set<String> tags;
     private Set<String> countries;
-    private Map<String, PersonDto> persons;
 }
