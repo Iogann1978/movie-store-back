@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Entity
 public class MoviePerson {
     public enum Role {
-        ACTOR, DIRECTOR, VOICE
+        ACTOR, DIRECTOR, COMPOSER
     }
 
     @Id
