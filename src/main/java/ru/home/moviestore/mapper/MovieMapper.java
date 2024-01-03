@@ -6,6 +6,7 @@ import ru.home.moviestore.model.Country;
 import ru.home.moviestore.model.Movie;
 import ru.home.moviestore.model.Tag;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -15,7 +16,7 @@ public class MovieMapper {
         return Movie.builder()
                 .id(dto.getId())
                 .title(dto.getTitle())
-                .originTitle(dto.getOriginTitle())
+                .originTitle(Optional.ofNullable(dto).map(MovieDto::getOriginTitle).orElseGet(dto::getTitle))
                 .externalRating(dto.getExternalRating())
                 .internalRating(dto.getInternalRating())
                 .duration(dto.getDuration())
