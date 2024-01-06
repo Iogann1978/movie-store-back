@@ -11,6 +11,7 @@ public class MoviePersonMapper {
                 .movieId(dto.getMovieId())
                 .personId(dto.getPerson().getId())
                 .role(MoviePerson.Role.valueOf(dto.getRole()))
+                .description(dto.getDescription())
                 .build();
     }
 }

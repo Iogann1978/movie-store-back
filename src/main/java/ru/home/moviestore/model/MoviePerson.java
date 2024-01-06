@@ -23,4 +23,5 @@ public class MoviePerson {
     private Long movieId;
     private Long personId;
     private Role role;
+    private String description;
 }
