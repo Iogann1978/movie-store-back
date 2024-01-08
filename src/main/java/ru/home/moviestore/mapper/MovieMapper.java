@@ -2,10 +2,13 @@ package ru.home.moviestore.mapper;
 
 import lombok.experimental.UtilityClass;
 import ru.home.moviestore.dto.MovieDto;
+import ru.home.moviestore.kinopoisk.model.Film;
+import ru.home.moviestore.kinopoisk.model.Genre;
 import ru.home.moviestore.model.Country;
 import ru.home.moviestore.model.Movie;
 import ru.home.moviestore.model.Tag;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -44,6 +47,19 @@ public class MovieMapper {
                 .build();
     }
 
+    public MovieDto fromFilm(Film film) {
+        return MovieDto.builder()
+                .id(film.getKinopoiskId().longValue())
+                .title(film.getNameRu())
+                .originTitle(film.getNameEn())
+                .year(film.getYear())
+                .serial(film.getSerial())
+                .externalRating(film.getRatingKinopoisk().intValue())
+                .tags(getTags(film.getGenres()))
+                .countries(getCountries(film.getCountries()))
+                .build();
+    }
+
     private Set<String> getContriesDto(Set<Country> countries) {
         return countries.stream().map(Country::getName).collect(Collectors.toSet());
     }
@@ -62,5 +78,13 @@ public class MovieMapper {
         return tags.stream()
                 .map(tag -> Tag.builder().name(tag).build())
                 .collect(Collectors.toSet());
+    }
+
+    private Set<String> getTags(List<Genre> genres) {
+        return genres.stream().map(Genre::getGenre).collect(Collectors.toSet());
+    }
+
+    private Set<String> getCountries(List<ru.home.moviestore.kinopoisk.model.Country> countries) {
+        return countries.stream().map(ru.home.moviestore.kinopoisk.model.Country::getCountry).collect(Collectors.toSet());
     }
 }

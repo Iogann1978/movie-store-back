@@ -7,16 +7,25 @@ import ru.home.moviestore.mapper.PersonMapper;
 import ru.home.moviestore.repository.PersonRepository;
 
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class PersonService {
     private final PersonRepository personRepository;
 
+    public Set<PersonDto> getPersons() {
+        return personRepository.findAll().stream()
+                .map(PersonMapper::entityToDto)
+                .collect(Collectors.toSet());
+    }
+
     public Optional<PersonDto> getPerson(Long id) {
         return personRepository.findById(id)
                 .map(PersonMapper::entityToDto);
     }
+
     public void savePerson(PersonDto dto) {
         personRepository.save(PersonMapper.dtoToEntity(dto));
     }
