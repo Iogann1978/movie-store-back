@@ -21,7 +21,7 @@ public class MovieMapper {
         return Movie.builder()
                 .id(dto.getId())
                 .title(dto.getTitle())
-                .originTitle(Optional.ofNullable(dto).map(MovieDto::getOriginTitle).orElseGet(dto::getTitle))
+                .originTitle(Optional.ofNullable(dto.getOriginTitle()).orElseGet(dto::getTitle))
                 .externalRating(dto.getExternalRating())
                 .internalRating(dto.getInternalRating())
                 .duration(dto.getDuration())
@@ -53,8 +53,8 @@ public class MovieMapper {
         return MovieDto.builder()
                 .id(film.getKinopoiskId().longValue())
                 .title(film.getNameRu())
-                .originTitle(film.getNameEn())
-                .year(Optional.ofNullable(film).map(Film::getYear).map(Long::intValue).orElse(null))
+                .originTitle(Optional.ofNullable(film.getNameOriginal()).orElseGet(film::getNameEn))
+                .year(Optional.ofNullable(film.getYear()).map(Long::intValue).orElse(null))
                 .serial(film.getSerial())
                 .externalRating(getRating(film))
                 .tags(getTags(film.getGenres()))
@@ -91,8 +91,7 @@ public class MovieMapper {
     }
 
     private Integer getRating(Film film) {
-        return Optional.ofNullable(film)
-                .map(Film::getRatingKinopoisk)
+        return Optional.ofNullable(film.getRatingKinopoisk())
                 .map(rating -> rating.divide(BigDecimal.valueOf(2.0d), RoundingMode.HALF_UP))
                 .map(BigDecimal::intValue)
                 .orElse(0);

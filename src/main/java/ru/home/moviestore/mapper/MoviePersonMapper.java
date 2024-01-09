@@ -14,8 +14,8 @@ import java.util.Optional;
 public class MoviePersonMapper {
     public MoviePerson dtoToEntity(MoviePersonDto dto) {
         return MoviePerson.builder()
-                .movieId(Optional.ofNullable(dto).map(MoviePersonDto::getMovie).map(MovieDto::getId).orElse(null))
-                .personId(Optional.ofNullable(dto).map(MoviePersonDto::getPerson).map(PersonDto::getId).orElse(null))
+                .movieId(Optional.ofNullable(dto.getMovie()).map(MovieDto::getId).orElse(null))
+                .personId(Optional.ofNullable(dto.getPerson()).map(PersonDto::getId).orElse(null))
                 .role(MoviePerson.Role.valueOf(dto.getRole()))
                 .description(dto.getDescription())
                 .build();

@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 import ru.home.moviestore.kinopoisk.ApiClient;
 import ru.home.moviestore.kinopoisk.api.FilmsApi;
+import ru.home.moviestore.kinopoisk.api.StaffApi;
 
 @Configuration
 public class WebConfig {
@@ -28,5 +29,10 @@ public class WebConfig {
     @Bean
     public FilmsApi filmsApi(ApiClient apiClient) {
         return new FilmsApi(apiClient);
+    }
+
+    @Bean
+    public StaffApi staffApi(ApiClient apiClient) {
+        return new StaffApi(apiClient);
     }
 }

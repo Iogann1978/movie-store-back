@@ -2,6 +2,7 @@ package ru.home.moviestore.mapper;
 
 import lombok.experimental.UtilityClass;
 import ru.home.moviestore.dto.PersonDto;
+import ru.home.moviestore.kinopoisk.model.StaffResponse;
 import ru.home.moviestore.model.Person;
 
 import java.util.Optional;
@@ -12,7 +13,7 @@ public class PersonMapper {
         return Person.builder()
                 .id(dto.getId())
                 .name(dto.getName())
-                .originName(Optional.ofNullable(dto).map(PersonDto::getOriginName).orElseGet(dto::getName))
+                .originName(Optional.ofNullable(dto.getOriginName()).orElseGet(dto::getName))
                 .build();
     }
 
@@ -20,6 +21,15 @@ public class PersonMapper {
         return PersonDto.builder()
                 .id(entity.getId())
                 .name(entity.getName())
+                .originName(entity.getOriginName())
+                .build();
+    }
+
+    public PersonDto fromStaff(StaffResponse staff) {
+        return PersonDto.builder()
+                .id(staff.getStaffId())
+                .name(staff.getNameRu())
+                .originName(staff.getNameEn())
                 .build();
     }
 }
