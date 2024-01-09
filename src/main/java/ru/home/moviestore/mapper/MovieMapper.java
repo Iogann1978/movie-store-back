@@ -8,6 +8,8 @@ import ru.home.moviestore.model.Country;
 import ru.home.moviestore.model.Movie;
 import ru.home.moviestore.model.Tag;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -52,9 +54,9 @@ public class MovieMapper {
                 .id(film.getKinopoiskId().longValue())
                 .title(film.getNameRu())
                 .originTitle(film.getNameEn())
-                .year(film.getYear())
+                .year(Optional.ofNullable(film).map(Film::getYear).map(Long::intValue).orElse(null))
                 .serial(film.getSerial())
-                .externalRating(film.getRatingKinopoisk().intValue())
+                .externalRating(getRating(film))
                 .tags(getTags(film.getGenres()))
                 .countries(getCountries(film.getCountries()))
                 .build();
@@ -86,5 +88,13 @@ public class MovieMapper {
 
     private Set<String> getCountries(List<ru.home.moviestore.kinopoisk.model.Country> countries) {
         return countries.stream().map(ru.home.moviestore.kinopoisk.model.Country::getCountry).collect(Collectors.toSet());
+    }
+
+    private Integer getRating(Film film) {
+        return Optional.ofNullable(film)
+                .map(Film::getRatingKinopoisk)
+                .map(rating -> rating.divide(BigDecimal.valueOf(2.0d), RoundingMode.HALF_UP))
+                .map(BigDecimal::intValue)
+                .orElse(0);
     }
 }

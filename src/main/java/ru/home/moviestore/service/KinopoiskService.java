@@ -13,7 +13,7 @@ public class KinopoiskService {
     private final FilmsApi filmsApi;
 
     public MovieDto findMovie(Long movieId) {
-        Film film = filmsApi.apiV22FilmsIdGet(movieId.intValue());
+        Film film = filmsApi.apiV22FilmsIdGet(movieId);
         return MovieMapper.fromFilm(film);
     }
 }

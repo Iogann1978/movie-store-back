@@ -97,6 +97,12 @@
                             <configOptions>
                                 <dateLibrary>java8-localdatetime</dateLibrary>
                             </configOptions>
+                            <typeMappings>
+                                <typeMapping>integer=Long</typeMapping>
+                            </typeMappings>
+                            <importMappings>
+                                <importMapping>java.lang.Integer=java.lang.Long</importMapping>
+                            </importMappings>
                             <library>resttemplate</library>
                             <apiPackage>ru.home.moviestore.kinopoisk.api</apiPackage>
                             <modelPackage>ru.home.moviestore.kinopoisk.model</modelPackage>
