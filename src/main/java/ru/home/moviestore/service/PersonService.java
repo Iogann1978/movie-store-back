@@ -1,7 +1,6 @@
 package ru.home.moviestore.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Role;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import ru.home.moviestore.dto.PersonDto;
