@@ -51,12 +51,13 @@ public class MovieMapper {
 
     public MovieDto fromFilm(Film film) {
         return MovieDto.builder()
-                .id(film.getKinopoiskId().longValue())
+                .id(film.getKinopoiskId())
                 .title(film.getNameRu())
                 .originTitle(Optional.ofNullable(film.getNameOriginal()).orElseGet(film::getNameEn))
-                .year(Optional.ofNullable(film.getYear()).map(Long::intValue).orElse(null))
+                .year(Optional.ofNullable(film.getYear()).map(Long::intValue).orElse(0))
                 .serial(film.getSerial())
                 .externalRating(getRating(film))
+                .duration(Optional.ofNullable(film.getFilmLength()).map(Long::intValue).orElse(0))
                 .tags(getTags(film.getGenres()))
                 .countries(getCountries(film.getCountries()))
                 .build();
