@@ -15,8 +15,8 @@ public class MovieController {
     private final MovieService movieService;
 
     @GetMapping
-    public Set<MovieDto> getMovies() {
-        return movieService.getMovies();
+    public Set<MovieDto> getMovies(@RequestParam Boolean isSerial) {
+        return movieService.getMovies(isSerial);
     }
 
     @GetMapping("/{id}")

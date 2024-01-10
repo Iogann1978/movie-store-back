@@ -9,8 +9,6 @@ import java.util.List;
 
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Long> {
-    @Query("SELECT m FROM Movie m WHERE m.serial = true ORDER BY m.title")
-    List<Movie> findAllSerial();
-    @Query("SELECT m FROM Movie m WHERE m.serial = false ORDER BY m.title")
-    List<Movie> findAllMovie();
+    @Query("SELECT m FROM Movie m WHERE m.serial = :isSerial ORDER BY m.title")
+    List<Movie> findAllMovie(Boolean isSerial);
 }
