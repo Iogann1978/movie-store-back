@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.home.moviestore.dto.MoviePersonDto;
 import ru.home.moviestore.mapper.MoviePersonMapper;
 import ru.home.moviestore.mapper.PersonMapper;
+import ru.home.moviestore.model.MoviePerson;
 import ru.home.moviestore.repository.MoviePersonRepository;
 import ru.home.moviestore.repository.PersonRepository;
 
@@ -30,8 +31,9 @@ public class MoviePersonService {
                 .collect(Collectors.toSet());
     }
 
-    public void saveMoviePerson(MoviePersonDto dto) {
-        personService.savePerson(dto.getPerson());
-        moviePersonRepository.save(MoviePersonMapper.dtoToEntity(dto));
+    public void saveMoviePerson(MoviePerson moviePerson) {
+        if (!moviePersonRepository.findAllByMovieIdAndAndPersonIdAndRole(moviePerson.getMovieId(), moviePerson.getPersonId(), moviePerson.getRole()).isPresent()) {
+            moviePersonRepository.save(moviePerson);
+        }
     }
 }

@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class MovieService {
     private final MovieRepository movieRepository;
+    private final PersonService personService;
 
     public Set<MovieDto> getMovies() {
         return movieRepository.findAllMovie().stream()
@@ -28,5 +29,6 @@ public class MovieService {
 
     public void saveMovie(MovieDto dto) {
         movieRepository.save(MovieMapper.dtoToEntity(dto));
+        personService.savePersons(dto.getId());
     }
 }

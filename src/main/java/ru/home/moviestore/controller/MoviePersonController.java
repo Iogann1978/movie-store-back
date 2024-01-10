@@ -22,9 +22,4 @@ public class MoviePersonController {
     public Set<MoviePersonDto> getMovies(@PathVariable Long personId) {
         return moviePersonService.getMovies(personId);
     }
-
-    @PutMapping
-    public void saveMoviePersons(Set<MoviePersonDto> dtos) {
-        dtos.stream().forEach(moviePersonService::saveMoviePerson);
-    }
 }

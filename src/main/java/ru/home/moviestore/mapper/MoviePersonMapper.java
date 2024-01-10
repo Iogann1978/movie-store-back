@@ -4,6 +4,7 @@ import lombok.experimental.UtilityClass;
 import ru.home.moviestore.dto.MovieDto;
 import ru.home.moviestore.dto.MoviePersonDto;
 import ru.home.moviestore.dto.PersonDto;
+import ru.home.moviestore.kinopoisk.model.StaffResponse;
 import ru.home.moviestore.model.MoviePerson;
 import ru.home.moviestore.service.MovieService;
 import ru.home.moviestore.service.PersonService;
@@ -31,6 +32,15 @@ public class MoviePersonMapper {
                 .person(personDto)
                 .role(entity.getRole().name())
                 .description(entity.getDescription())
+                .build();
+    }
+
+    public MoviePerson fromStaff(Long movieId, StaffResponse staff) {
+        return MoviePerson.builder()
+                .movieId(movieId)
+                .personId(staff.getStaffId())
+                .description(staff.getDescription())
+                .role(MoviePerson.Role.valueOf(staff.getProfessionKey().name()))
                 .build();
     }
 }
