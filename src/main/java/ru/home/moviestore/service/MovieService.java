@@ -17,7 +17,7 @@ public class MovieService {
     private final PersonService personService;
 
     public Set<MovieDto> getMovies(Boolean isSerial) {
-        return movieRepository.findAllMovie(isSerial).stream()
+        return movieRepository.findAllMovies(isSerial).stream()
                 .map(MovieMapper::entityToDto)
                 .collect(Collectors.toSet());
     }
