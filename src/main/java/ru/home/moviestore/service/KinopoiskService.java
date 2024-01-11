@@ -14,6 +14,7 @@ import ru.home.moviestore.mapper.PersonMapper;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -23,9 +24,9 @@ public class KinopoiskService {
     private final FilmsApi filmsApi;
     private final StaffApi staffApi;
 
-    public MovieDto findMovie(Long movieId) {
+    public Optional<MovieDto> findMovie(Long movieId) {
         Film film = filmsApi.apiV22FilmsIdGet(movieId);
-        return MovieMapper.fromFilm(film);
+        return Optional.ofNullable(film).map(MovieMapper::fromFilm);
     }
 
     public Set<PersonDto> findPersons(Long movieId) {

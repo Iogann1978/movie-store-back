@@ -1,6 +1,8 @@
 package ru.home.moviestore.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import ru.home.moviestore.dto.PersonDto;
 import ru.home.moviestore.service.PersonService;
@@ -14,7 +16,10 @@ public class PersonController {
     private final PersonService personService;
 
     @GetMapping
-    public Set<PersonDto> getMovies() {
-        return personService.getPersons();
+    public ResponseEntity<Set<PersonDto>> getMovies() {
+        Set<PersonDto> persons = personService.getPersons();
+        return !CollectionUtils.isEmpty(persons) ?
+                ResponseEntity.ok(persons) :
+                ResponseEntity.noContent().build();
     }
 }

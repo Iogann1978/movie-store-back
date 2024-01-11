@@ -1,6 +1,8 @@
 package ru.home.moviestore.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,12 +20,16 @@ public class KinopoiskController {
     private final KinopoiskService kinopoiskService;
 
     @GetMapping("/movie/{movieId}")
-    public MovieDto getMovie(@PathVariable Long movieId) {
-        return kinopoiskService.findMovie(movieId);
+    public ResponseEntity<MovieDto> getMovie(@PathVariable Long movieId) {
+        return kinopoiskService.findMovie(movieId).map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping("/movie/{movieId}")
-    public Set<PersonDto> getPersons(@PathVariable Long movieId) {
-        return kinopoiskService.findPersons(movieId);
+    public ResponseEntity<Set<PersonDto>> getPersons(@PathVariable Long movieId) {
+        Set<PersonDto> persons = kinopoiskService.findPersons(movieId);
+        return !CollectionUtils.isEmpty(persons) ?
+                ResponseEntity.ok(persons) :
+                ResponseEntity.noContent().build();
     }
 }

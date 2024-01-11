@@ -2,6 +2,7 @@ package ru.home.moviestore.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import ru.home.moviestore.dto.MovieDto;
 import ru.home.moviestore.service.MovieService;
@@ -15,8 +16,11 @@ public class MovieController {
     private final MovieService movieService;
 
     @GetMapping
-    public Set<MovieDto> getMovies(@RequestParam Boolean isSerial) {
-        return movieService.getMovies(isSerial);
+    public ResponseEntity<Set<MovieDto>> getMovies(@RequestParam Boolean isSerial) {
+        Set<MovieDto> movies = movieService.getMovies(isSerial);
+        return !CollectionUtils.isEmpty(movies) ?
+                ResponseEntity.ok(movies) :
+                ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
