@@ -9,6 +9,7 @@ import ru.home.moviestore.kinopoisk.model.StaffResponse;
 import ru.home.moviestore.mapper.MoviePersonMapper;
 import ru.home.moviestore.mapper.PersonMapper;
 import ru.home.moviestore.model.MoviePerson;
+import ru.home.moviestore.model.Person;
 import ru.home.moviestore.repository.PersonRepository;
 
 import java.util.Arrays;
@@ -51,6 +52,14 @@ public class PersonService {
                     .filter(staff -> ROLES.contains(staff.getProfessionKey()))
                     .map(PersonMapper::fromStaff)
                     .forEach(this::savePerson);
+        }
+    }
+
+    public void deletePersons(Long movieId) {
+        moviePersonService.deleteByMovieId(movieId);
+        List<Person> persons = personRepository.findNullMovie();
+        if (!CollectionUtils.isEmpty(persons)) {
+            personRepository.deleteAll(persons);
         }
     }
 }

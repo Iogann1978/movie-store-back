@@ -31,4 +31,9 @@ public class MovieService {
         movieRepository.save(MovieMapper.dtoToEntity(dto));
         personService.savePersons(dto.getId());
     }
+
+    public void deleteMovie(Long id) {
+        personService.deletePersons(id);
+        movieRepository.deleteById(id);
+    }
 }

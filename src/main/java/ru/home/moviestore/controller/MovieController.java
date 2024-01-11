@@ -30,4 +30,9 @@ public class MovieController {
     public void saveMovie(@RequestBody MovieDto dto) {
         movieService.saveMovie(dto);
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteMovie(@PathVariable Long id) {
+        movieService.deleteMovie(id);
+    }
 }

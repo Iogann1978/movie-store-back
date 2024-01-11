@@ -36,4 +36,8 @@ public class MoviePersonService {
             moviePersonRepository.save(moviePerson);
         }
     }
+
+    public void deleteByMovieId(Long movieId) {
+        moviePersonRepository.deleteAllByMovieId(movieId);
+    }
 }
