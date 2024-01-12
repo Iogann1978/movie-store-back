@@ -40,4 +40,12 @@ public class MoviePersonService {
     public void deleteByMovieId(Long movieId) {
         moviePersonRepository.deleteAllByMovieId(movieId);
     }
+
+    public Integer getMoviesCount(Long personId, MoviePerson.Role role) {
+        return moviePersonRepository.getMoviesCountByPersonIdAndRole(personId, role);
+    }
+
+    public Integer getSeriesCount(Long personId, MoviePerson.Role role) {
+        return moviePersonRepository.getSeriesCountByPersonIdAndRole(personId, role);
+    }
 }

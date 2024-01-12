@@ -10,10 +10,14 @@ import java.util.Optional;
 
 @Repository
 public interface MoviePersonRepository extends JpaRepository<MoviePerson, Long> {
-    @Query("SELECT mp From MoviePerson mp WHERE mp.movieId = :movieId")
+    @Query("SELECT mp FROM MoviePerson mp WHERE mp.movieId = :movieId")
     List<MoviePerson> findPersonsByMovieId(Long movieId);
-    @Query("SELECT mp From MoviePerson mp WHERE mp.personId = :personId")
+    @Query("SELECT mp FROM MoviePerson mp WHERE mp.personId = :personId")
     List<MoviePerson> findMoviesByPersonId(Long personId);
     Optional<MoviePerson> findAllByMovieIdAndAndPersonIdAndRole(Long movieId, Long personId, MoviePerson.Role role);
     void deleteAllByMovieId(Long movieId);
+    @Query("SELECT count(mp.movieId) FROM MoviePerson mp JOIN Movie m ON mp.personId = :personId and mp.role = :role and m.serial = false")
+    Integer getMoviesCountByPersonIdAndRole(Long personId, MoviePerson.Role role);
+    @Query("SELECT count(mp.movieId) FROM MoviePerson mp JOIN Movie m ON mp.personId = :personId and mp.role = :role and m.serial = true")
+    Integer getSeriesCountByPersonIdAndRole(Long personId, MoviePerson.Role role);
 }

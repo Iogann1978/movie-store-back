@@ -3,7 +3,9 @@ package ru.home.moviestore.mapper;
 import lombok.experimental.UtilityClass;
 import ru.home.moviestore.dto.PersonDto;
 import ru.home.moviestore.kinopoisk.model.StaffResponse;
+import ru.home.moviestore.model.MoviePerson;
 import ru.home.moviestore.model.Person;
+import ru.home.moviestore.service.MoviePersonService;
 
 import java.util.Optional;
 
@@ -22,6 +24,20 @@ public class PersonMapper {
                 .id(entity.getId())
                 .name(entity.getName())
                 .originName(entity.getOriginName())
+                .moviesCount(0)
+                .seriesCount(0)
+                .build();
+    }
+
+    public PersonDto entityToDto(Person entity, MoviePerson.Role role, MoviePersonService moviePersonService) {
+        Integer moviesCount = moviePersonService.getMoviesCount(entity.getId(), role);
+        Integer seriesCount = moviePersonService.getMoviesCount(entity.getId(), role);
+        return PersonDto.builder()
+                .id(entity.getId())
+                .name(entity.getName())
+                .originName(entity.getOriginName())
+                .moviesCount(moviesCount)
+                .seriesCount(seriesCount)
                 .build();
     }
 

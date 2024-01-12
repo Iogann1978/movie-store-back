@@ -26,9 +26,9 @@ public class PersonService {
     private final StaffApi staffApi;
     private final MoviePersonService moviePersonService;
 
-    public Set<PersonDto> getPersons() {
-        return personRepository.findAll().stream()
-                .map(PersonMapper::entityToDto)
+    public Set<PersonDto> getPersons(MoviePerson.Role role) {
+        return personRepository.findAllByRole(role).stream()
+                .map(person -> PersonMapper.entityToDto(person, role, moviePersonService))
                 .collect(Collectors.toSet());
     }
 
