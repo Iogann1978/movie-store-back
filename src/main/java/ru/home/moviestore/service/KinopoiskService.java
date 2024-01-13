@@ -29,9 +29,9 @@ public class KinopoiskService {
         return Optional.ofNullable(film).map(MovieMapper::fromFilm);
     }
 
-    public Set<PersonDto> findPersons(Long movieId) {
+    public Set<StaffResponse> findPersons(Long movieId) {
         List<StaffResponse> staffs = staffApi.apiV1StaffGet(movieId);
         return CollectionUtils.isEmpty(staffs) ? Collections.EMPTY_SET :
-                staffs.stream().map(PersonMapper::fromStaff).collect(Collectors.toSet());
+                staffs.stream().collect(Collectors.toSet());
     }
 }

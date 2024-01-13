@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import ru.home.moviestore.dto.PersonDto;
-import ru.home.moviestore.kinopoisk.api.StaffApi;
 import ru.home.moviestore.kinopoisk.model.StaffResponse;
 import ru.home.moviestore.mapper.MoviePersonMapper;
 import ru.home.moviestore.mapper.PersonMapper;
@@ -23,7 +22,7 @@ import java.util.stream.Collectors;
 public class PersonService {
     private static final Set<String> ROLES = Arrays.stream(MoviePerson.Role.values()).map(MoviePerson.Role::name).collect(Collectors.toSet());
     private final PersonRepository personRepository;
-    private final StaffApi staffApi;
+    private final KinopoiskService kinopoiskService;
     private final MoviePersonService moviePersonService;
 
     public Set<PersonDto> getPersons(MoviePerson.Role role) {
@@ -42,7 +41,7 @@ public class PersonService {
     }
 
     public void savePersons(Long movieId) {
-        List<StaffResponse> staffs = staffApi.apiV1StaffGet(movieId);
+        Set<StaffResponse> staffs = kinopoiskService.findPersons(movieId);
         if (!CollectionUtils.isEmpty(staffs)) {
             staffs.stream()
                     .filter(staff -> ROLES.contains(staff.getProfessionKey()))

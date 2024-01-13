@@ -24,12 +24,4 @@ public class KinopoiskController {
         return kinopoiskService.findMovie(movieId).map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
-
-    @GetMapping("/movie/{movieId}")
-    public ResponseEntity<Set<PersonDto>> getPersons(@PathVariable Long movieId) {
-        Set<PersonDto> persons = kinopoiskService.findPersons(movieId);
-        return !CollectionUtils.isEmpty(persons) ?
-                ResponseEntity.ok(persons) :
-                ResponseEntity.noContent().build();
-    }
 }
