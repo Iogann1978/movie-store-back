@@ -28,4 +28,11 @@ public class PersonController {
                 ResponseEntity.ok(persons) :
                 ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PersonDto> getPerson(@PathVariable Long id) {
+        return personService.getPerson(id)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
 }
