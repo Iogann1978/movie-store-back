@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 public class MovieService {
     private final MovieRepository movieRepository;
     private final PersonService personService;
+    private final KinopoiskService kinopoiskService;
 
     public Set<MovieDto> getMovies(Boolean isSerial) {
         return movieRepository.findAllMovies(isSerial).stream()
@@ -23,8 +24,9 @@ public class MovieService {
     }
 
     public Optional<MovieDto> getMovie(Long id) {
-        return movieRepository.findById(id)
-                .map(MovieMapper::entityToDto);
+        return movieRepository.existsById(id) ?
+                movieRepository.findById(id).map(MovieMapper::entityToDto) :
+                kinopoiskService.findMovie(id);
     }
 
     public void saveMovie(MovieDto dto) {
