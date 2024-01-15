@@ -25,6 +25,12 @@ public class PersonService {
     private final KinopoiskService kinopoiskService;
     private final MoviePersonService moviePersonService;
 
+    public Set<PersonDto> getPersons() {
+        return personRepository.findAll().stream()
+                .map(PersonMapper::entityToDto)
+                .collect(Collectors.toSet());
+    }
+
     public Set<PersonDto> getPersons(MoviePerson.Role role) {
         return personRepository.findAllByRole(role).stream()
                 .map(person -> PersonMapper.entityToDto(person, role, moviePersonService))

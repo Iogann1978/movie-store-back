@@ -17,6 +17,12 @@ public class MovieService {
     private final PersonService personService;
     private final KinopoiskService kinopoiskService;
 
+    public Set<MovieDto> getMovies() {
+        return movieRepository.findAll().stream()
+                .map(MovieMapper::entityToDto)
+                .collect(Collectors.toSet());
+    }
+
     public Set<MovieDto> getMovies(Boolean isSerial) {
         return movieRepository.findAllMovies(isSerial).stream()
                 .map(MovieMapper::entityToDto)

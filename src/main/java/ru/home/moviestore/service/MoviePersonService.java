@@ -4,10 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.home.moviestore.dto.MoviePersonDto;
 import ru.home.moviestore.mapper.MoviePersonMapper;
-import ru.home.moviestore.mapper.PersonMapper;
 import ru.home.moviestore.model.MoviePerson;
 import ru.home.moviestore.repository.MoviePersonRepository;
-import ru.home.moviestore.repository.PersonRepository;
 
 import java.util.Set;
 import java.util.stream.Collectors;
