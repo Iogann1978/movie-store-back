@@ -19,4 +19,5 @@ public class MovieDto {
     private Boolean serial;
     private Set<String> tags;
     private Set<String> countries;
+    private Set<DescriptDto> descripts;
 }

@@ -1,15 +1,18 @@
 package ru.home.moviestore.mapper;
 
 import lombok.experimental.UtilityClass;
+import ru.home.moviestore.dto.DescriptDto;
 import ru.home.moviestore.dto.MovieDto;
 import ru.home.moviestore.kinopoisk.model.Film;
 import ru.home.moviestore.kinopoisk.model.Genre;
 import ru.home.moviestore.model.Country;
+import ru.home.moviestore.model.Descript;
 import ru.home.moviestore.model.Movie;
 import ru.home.moviestore.model.Tag;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -30,6 +33,7 @@ public class MovieMapper {
                 .state(Movie.State.valueOf(dto.getState()))
                 .countries(getContries(dto.getCountries()))
                 .tags(getTags(dto.getTags()))
+                .descripts(getDescripts(dto.getDescripts()))
                 .build();
     }
 
@@ -46,6 +50,7 @@ public class MovieMapper {
                 .state(entity.getState().name())
                 .countries(getContriesDto(entity.getCountries()))
                 .tags(getTagsDto(entity.getTags()))
+                .descripts(getDescriptsDto(entity.getDescripts()))
                 .build();
     }
 
@@ -60,6 +65,7 @@ public class MovieMapper {
                 .duration(Optional.ofNullable(film.getFilmLength()).map(Long::intValue).orElse(0))
                 .tags(getTags(film.getGenres()))
                 .countries(getCountries(film.getCountries()))
+                .descripts(getDescript(film.getDescription()))
                 .build();
     }
 
@@ -96,5 +102,21 @@ public class MovieMapper {
                 .map(rating -> rating.divide(BigDecimal.valueOf(2.0d), RoundingMode.HALF_UP))
                 .map(BigDecimal::intValue)
                 .orElse(0);
+    }
+
+    private Set<DescriptDto> getDescriptsDto(Set<Descript> descripts) {
+        return descripts.stream().map(DescriptMapper::entityToDto).collect(Collectors.toSet());
+    }
+
+    private Set<Descript> getDescripts(Set<DescriptDto> descripts) {
+        return descripts.stream().map(DescriptMapper::dtoToEntity).collect(Collectors.toSet());
+    }
+
+    private Set<DescriptDto> getDescript(String descript) {
+        return Collections.singleton(
+                DescriptDto.builder()
+                        .name("Кинопоиск")
+                        .text(descript)
+                        .build());
     }
 }
