@@ -65,7 +65,7 @@ public class MovieMapper {
                 .duration(Optional.ofNullable(film.getFilmLength()).map(Long::intValue).orElse(0))
                 .tags(getTags(film.getGenres()))
                 .countries(getCountries(film.getCountries()))
-                .descripts(getDescript(film.getDescription()))
+                .descripts(getDescript(film))
                 .build();
     }
 
@@ -112,11 +112,7 @@ public class MovieMapper {
         return descripts.stream().map(DescriptMapper::dtoToEntity).collect(Collectors.toSet());
     }
 
-    private Set<DescriptDto> getDescript(String descript) {
-        return Collections.singleton(
-                DescriptDto.builder()
-                        .name("Кинопоиск")
-                        .text(descript)
-                        .build());
+    private Set<DescriptDto> getDescript(Film film) {
+        return Collections.singleton(DescriptMapper.getDescript(film));
     }
 }
