@@ -2,6 +2,7 @@ package ru.home.moviestore.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import ru.home.moviestore.dto.MovieDto;
 import ru.home.moviestore.mapper.MovieMapper;
 import ru.home.moviestore.model.Movie;
@@ -15,7 +16,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class MovieService {
     private final MovieRepository movieRepository;
-    private final PersonService personService;
+    private final CountryService countryService;
+    private final TagService tagService;
     private final KinopoiskService kinopoiskService;
 
     public Set<MovieDto> getMovies() {
@@ -37,6 +39,12 @@ public class MovieService {
     }
 
     public void saveMovie(Movie movie) {
+        if (!CollectionUtils.isEmpty(movie.getCountries())) {
+            countryService.saveAll(movie.getCountries());
+        }
+        if (!CollectionUtils.isEmpty(movie.getTags())) {
+            tagService.saveAll(movie.getTags());
+        }
         movieRepository.save(movie);
     }
 

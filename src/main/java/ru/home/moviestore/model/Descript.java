@@ -17,7 +17,7 @@ public class Descript {
     private String name;
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "INFO_ID")
+    @JoinColumn(name = "MOVIE_ID")
     private Movie movie;
     @Lob
     @Column(length = 10000)

@@ -19,8 +19,8 @@ public class StatService {
     public StatDto getStat() {
         Set<MovieDto> movies = movieService.getMovies();
         Long totalMoviesCount = Long.valueOf(movies.size());
-        Long moviesCount = movieService.getMovies().stream().filter(MovieDto::getSerial).count();
-        Long seriesCount = movieService.getMovies().stream().filter(Predicate.not(MovieDto::getSerial)).count();
+        Long moviesCount = movieService.getMovies().stream().filter(Predicate.not(MovieDto::getSerial)).count();
+        Long seriesCount = movieService.getMovies().stream().filter(MovieDto::getSerial).count();
         Long totalPersonsCount = personService.getPersons().stream().count();
         Long actorsCount = moviePersonService.getPersons(MoviePerson.Role.ACTOR).stream().count();
         Long directosCount = moviePersonService.getPersons(MoviePerson.Role.DIRECTOR).stream().count();
