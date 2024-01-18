@@ -5,15 +5,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import ru.home.moviestore.dto.MovieDto;
+import ru.home.moviestore.service.MoviePersonService;
 import ru.home.moviestore.service.MovieService;
 
 import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/movie")
+@RequestMapping(value = "/api/movie")
 public class MovieController {
     private final MovieService movieService;
+    private final MoviePersonService moviePersonService;
 
     @GetMapping
     public ResponseEntity<Set<MovieDto>> getMovies(@RequestParam Boolean isSerial) {
@@ -32,11 +34,11 @@ public class MovieController {
 
     @PutMapping
     public void saveMovie(@RequestBody MovieDto dto) {
-        movieService.saveMovie(dto);
+        moviePersonService.saveMovie(dto);
     }
 
     @DeleteMapping("/{id}")
     public void deleteMovie(@PathVariable Long id) {
-        movieService.deleteMovie(id);
+        moviePersonService.deleteMovie(id);
     }
 }

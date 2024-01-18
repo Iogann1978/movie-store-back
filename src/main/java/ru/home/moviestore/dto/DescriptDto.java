@@ -8,5 +8,5 @@ import lombok.Data;
 public class DescriptDto {
     private Long id;
     private String name;
-    private String text;
+    private byte[] text;
 }

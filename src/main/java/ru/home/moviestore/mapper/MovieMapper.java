@@ -58,7 +58,7 @@ public class MovieMapper {
         return MovieDto.builder()
                 .id(film.getKinopoiskId())
                 .title(film.getNameRu())
-                .originTitle(Optional.ofNullable(film.getNameOriginal()).orElseGet(film::getNameEn))
+                .originTitle(getOriginalName(film))
                 .year(Optional.ofNullable(film.getYear()).map(Long::intValue).orElse(0))
                 .serial(film.getSerial())
                 .externalRating(getRating(film))
@@ -114,5 +114,11 @@ public class MovieMapper {
 
     private Set<DescriptDto> getDescript(Film film) {
         return Collections.singleton(DescriptMapper.getDescript(film));
+    }
+
+    private String getOriginalName(Film film) {
+        return Optional.ofNullable(film.getNameOriginal()).orElseGet(() ->
+            Optional.ofNullable(film.getNameEn()).orElseGet(film::getNameRu)
+        );
     }
 }

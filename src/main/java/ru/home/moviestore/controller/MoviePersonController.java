@@ -11,7 +11,7 @@ import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "movie-person")
+@RequestMapping(value = "/api/movie-person")
 public class MoviePersonController {
     private final MoviePersonService moviePersonService;
 

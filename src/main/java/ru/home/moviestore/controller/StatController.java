@@ -10,7 +10,7 @@ import ru.home.moviestore.service.StatService;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/stat")
+@RequestMapping(value = "/api/stat")
 public class StatController {
     private final StatService statService;
 

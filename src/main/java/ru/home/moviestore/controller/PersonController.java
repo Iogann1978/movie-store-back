@@ -6,15 +6,17 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import ru.home.moviestore.dto.PersonDto;
 import ru.home.moviestore.model.MoviePerson;
+import ru.home.moviestore.service.MoviePersonService;
 import ru.home.moviestore.service.PersonService;
 
 import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/person")
+@RequestMapping(value = "/api/person")
 public class PersonController {
     private final PersonService personService;
+    private final MoviePersonService moviePersonService;
 
     @GetMapping
     public ResponseEntity<Set<PersonDto>> getMovies(@RequestParam Integer roleIndex) {
@@ -23,7 +25,7 @@ public class PersonController {
         }
 
         MoviePerson.Role role = MoviePerson.Role.values()[roleIndex];
-        Set<PersonDto> persons = personService.getPersons(role);
+        Set<PersonDto> persons = moviePersonService.getPersons(role);
         return !CollectionUtils.isEmpty(persons) ?
                 ResponseEntity.ok(persons) :
                 ResponseEntity.noContent().build();

@@ -31,7 +31,7 @@ public class PersonMapper {
 
     public PersonDto entityToDto(Person entity, MoviePerson.Role role, MoviePersonService moviePersonService) {
         Integer moviesCount = moviePersonService.getMoviesCount(entity.getId(), role);
-        Integer seriesCount = moviePersonService.getMoviesCount(entity.getId(), role);
+        Integer seriesCount = moviePersonService.getSeriesCount(entity.getId(), role);
         return PersonDto.builder()
                 .id(entity.getId())
                 .name(entity.getName())

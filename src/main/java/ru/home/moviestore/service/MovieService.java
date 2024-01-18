@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.home.moviestore.dto.MovieDto;
 import ru.home.moviestore.mapper.MovieMapper;
+import ru.home.moviestore.model.Movie;
 import ru.home.moviestore.repository.MovieRepository;
 
 import java.util.Optional;
@@ -35,13 +36,11 @@ public class MovieService {
                 kinopoiskService.findMovie(id);
     }
 
-    public void saveMovie(MovieDto dto) {
-        movieRepository.save(MovieMapper.dtoToEntity(dto));
-        personService.savePersons(dto.getId());
+    public void saveMovie(Movie movie) {
+        movieRepository.save(movie);
     }
 
-    public void deleteMovie(Long id) {
-        personService.deletePersons(id);
+    public void deleteById(Long id) {
         movieRepository.deleteById(id);
     }
 }

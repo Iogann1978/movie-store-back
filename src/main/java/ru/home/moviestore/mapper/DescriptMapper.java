@@ -14,7 +14,7 @@ public class DescriptMapper {
         return Descript.builder()
                 .id(dto.getId())
                 .name(dto.getName())
-                .text(dto.getText().getBytes(StandardCharsets.UTF_8))
+                .text(dto.getText())
                 .build();
     }
 
@@ -22,7 +22,7 @@ public class DescriptMapper {
         return DescriptDto.builder()
                 .id(entity.getId())
                 .name(entity.getName())
-                .text(StringUtils.newStringUtf8(entity.getText()))
+                .text(entity.getText())
                 .build();
     }
 
@@ -40,7 +40,7 @@ public class DescriptMapper {
 
         return DescriptDto.builder()
                 .name("Кинопоиск")
-                .text(sb.toString())
+                .text(sb.toString().getBytes(StandardCharsets.UTF_8))
                 .build();
     }
 }
