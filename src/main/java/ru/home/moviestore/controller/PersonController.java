@@ -19,7 +19,7 @@ public class PersonController {
     private final MoviePersonService moviePersonService;
 
     @GetMapping
-    public ResponseEntity<Set<PersonDto>> getMovies(@RequestParam Integer roleIndex) {
+    public ResponseEntity<Set<PersonDto>> getMovies(@RequestParam("role") Integer roleIndex) {
         if (roleIndex < 0 || roleIndex >= MoviePerson.Role.values().length) {
             return ResponseEntity.badRequest().build();
         }

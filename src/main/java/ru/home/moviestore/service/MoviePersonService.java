@@ -39,7 +39,7 @@ public class MoviePersonService {
     }
 
     public void saveMoviePerson(MoviePerson moviePerson) {
-        if (!moviePersonRepository.findAllByMovieIdAndAndPersonIdAndRole(moviePerson.getMovieId(), moviePerson.getPersonId(), moviePerson.getRole()).isPresent()) {
+        if (!moviePersonRepository.findAllByMovieIdAndPersonIdAndRole(moviePerson.getMovieId(), moviePerson.getPersonId(), moviePerson.getRole()).isPresent()) {
             moviePersonRepository.save(moviePerson);
         }
     }
@@ -66,11 +66,11 @@ public class MoviePersonService {
         Set<StaffResponse> staffs = kinopoiskService.findPersons(movieId);
         if (!CollectionUtils.isEmpty(staffs)) {
             staffs.stream()
-                    .filter(staff -> ROLES.contains(staff.getProfessionKey()))
+                    .filter(staff -> ROLES.contains(staff.getProfessionKey().name()))
                     .map(staff -> MoviePersonMapper.fromStaff(movieId, staff))
                     .forEach(this::saveMoviePerson);
             staffs.stream()
-                    .filter(staff -> ROLES.contains(staff.getProfessionKey()))
+                    .filter(staff -> ROLES.contains(staff.getProfessionKey().name()))
                     .map(PersonMapper::fromStaff)
                     .forEach(personService::savePerson);
         }

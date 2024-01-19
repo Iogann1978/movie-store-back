@@ -8,6 +8,6 @@ import lombok.Data;
 public class MoviePersonDto {
     private MovieDto movie;
     private PersonDto person;
-    private String role;
+    private Integer role;
     private String description;
 }

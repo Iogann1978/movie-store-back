@@ -80,13 +80,13 @@ public class MovieMapper {
 
     private Set<Country> getContries(Set<String> countries) {
         return countries.stream()
-                .map(country -> Country.builder().name(country).build())
+                .map(country -> Country.builder().id(country.toUpperCase()).name(country).build())
                 .collect(Collectors.toSet());
     }
 
     private Set<Tag> getTags(Set<String> tags) {
         return tags.stream()
-                .map(tag -> Tag.builder().name(tag).build())
+                .map(tag -> Tag.builder().id(tag.toUpperCase()).name(tag).build())
                 .collect(Collectors.toSet());
     }
 

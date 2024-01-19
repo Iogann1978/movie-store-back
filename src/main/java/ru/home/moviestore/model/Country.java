@@ -15,9 +15,11 @@ import java.util.Set;
 @Entity
 public class Country {
     @Id
+    private String id;
     private String name;
 
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToMany(mappedBy = "countries", fetch = FetchType.LAZY)
     private Set<Movie> movies;
 }

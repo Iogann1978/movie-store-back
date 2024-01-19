@@ -31,14 +31,17 @@ public class Movie {
     @Column(nullable = false)
     private Boolean serial;
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "MOVIE_TAG", joinColumns = {@JoinColumn(name = "MOVIE_ID")}, inverseJoinColumns = {@JoinColumn(name = "NAME")})
+    @JoinTable(name = "MOVIE_TAG", joinColumns = {@JoinColumn(name = "MOVIE_ID")}, inverseJoinColumns = {@JoinColumn(name = "TAG_ID")})
     private Set<Tag> tags;
     @ToString.Exclude
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "MOVIE_COUNTRY", joinColumns = {@JoinColumn(name = "MOVIE_ID")}, inverseJoinColumns = {@JoinColumn(name = "NAME")})
+    @EqualsAndHashCode.Exclude
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "MOVIE_COUNTRY", joinColumns = {@JoinColumn(name = "MOVIE_ID")}, inverseJoinColumns = {@JoinColumn(name = "COUNTRY_ID")})
     private Set<Country> countries;
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<Descript> descripts;
 }

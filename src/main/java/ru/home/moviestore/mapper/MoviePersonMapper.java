@@ -17,7 +17,7 @@ public class MoviePersonMapper {
         return MoviePerson.builder()
                 .movieId(Optional.ofNullable(dto.getMovie()).map(MovieDto::getId).orElse(null))
                 .personId(Optional.ofNullable(dto.getPerson()).map(PersonDto::getId).orElse(null))
-                .role(MoviePerson.Role.valueOf(dto.getRole()))
+                .role(MoviePerson.Role.values()[dto.getRole()])
                 .description(dto.getDescription())
                 .build();
     }
@@ -30,7 +30,7 @@ public class MoviePersonMapper {
         return MoviePersonDto.builder()
                 .movie(movieDto)
                 .person(personDto)
-                .role(entity.getRole().name())
+                .role(entity.getRole().ordinal())
                 .description(entity.getDescription())
                 .build();
     }

@@ -12,6 +12,7 @@ import java.util.Set;
 @Entity
 public class Tag {
     @Id
+    private String id;
     private String name;
 
     @ToString.Exclude

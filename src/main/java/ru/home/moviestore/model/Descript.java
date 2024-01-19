@@ -16,9 +16,11 @@ public class Descript {
     @Column(nullable = false)
     private String name;
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MOVIE_ID")
     private Movie movie;
+    @EqualsAndHashCode.Exclude
     @Lob
     @Column(length = 10000)
     private byte[] text;

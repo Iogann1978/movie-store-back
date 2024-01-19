@@ -14,7 +14,7 @@ public interface MoviePersonRepository extends JpaRepository<MoviePerson, Long> 
     List<MoviePerson> findPersonsByMovieId(Long movieId);
     @Query("SELECT mp FROM MoviePerson mp WHERE mp.personId = :personId")
     List<MoviePerson> findMoviesByPersonId(Long personId);
-    Optional<MoviePerson> findAllByMovieIdAndAndPersonIdAndRole(Long movieId, Long personId, MoviePerson.Role role);
+    Optional<MoviePerson> findAllByMovieIdAndPersonIdAndRole(Long movieId, Long personId, MoviePerson.Role role);
     void deleteAllByMovieId(Long movieId);
     @Query("SELECT count(mp.movieId) FROM MoviePerson mp JOIN Movie m ON mp.personId = :personId and mp.role = :role and m.serial = false")
     Integer getMoviesCountByPersonIdAndRole(Long personId, MoviePerson.Role role);
