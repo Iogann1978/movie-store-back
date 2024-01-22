@@ -1,5 +1,6 @@
 package ru.home.moviestore.mapper;
 
+import io.micrometer.common.util.StringUtils;
 import lombok.experimental.UtilityClass;
 import ru.home.moviestore.dto.PersonDto;
 import ru.home.moviestore.kinopoisk.model.StaffResponse;
@@ -8,6 +9,7 @@ import ru.home.moviestore.model.Person;
 import ru.home.moviestore.service.MoviePersonService;
 
 import java.util.Optional;
+import java.util.function.Predicate;
 
 @UtilityClass
 public class PersonMapper {
@@ -44,7 +46,7 @@ public class PersonMapper {
     public PersonDto fromStaff(StaffResponse staff) {
         return PersonDto.builder()
                 .id(staff.getStaffId())
-                .name(staff.getNameRu())
+                .name(Optional.ofNullable(staff.getNameRu()).filter(Predicate.not(StringUtils::isEmpty)).orElseGet(staff::getNameEn))
                 .originName(staff.getNameEn())
                 .build();
     }
