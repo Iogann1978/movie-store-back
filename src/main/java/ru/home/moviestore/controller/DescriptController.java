@@ -30,8 +30,7 @@ public class DescriptController {
     }
 
     @PostMapping("/{id}")
-    public void descriptUpload(@PathVariable Long id, @RequestParam("file") MultipartFile file
-    ) {
+    public void descriptUpload(@PathVariable Long id, @RequestParam("file") MultipartFile file) {
         try {
             DescriptDto descriptDto = DescriptDto.builder()
                     .text(file.getBytes())
