@@ -31,9 +31,6 @@ public class DescriptMapper {
         sb.append(film.getSlogan());
         sb.append("</h1>\n");
         sb.append("<p>");
-        sb.append(film.getShortFilm());
-        sb.append("</p>\n");
-        sb.append("<p>");
         sb.append(film.getDescription());
         sb.append("</p>\n");
 

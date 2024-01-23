@@ -35,4 +35,9 @@ public class DescriptService {
                 .build();
         descriptRepository.save(descript);
     }
+
+    public void save(Movie movie, Descript descript) {
+        descript.setMovie(movie);
+        descriptRepository.save(descript);
+    }
 }

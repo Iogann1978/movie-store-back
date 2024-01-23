@@ -18,6 +18,7 @@ public class MovieService {
     private final MovieRepository movieRepository;
     private final CountryService countryService;
     private final TagService tagService;
+    private final DescriptService descriptService;
     private final KinopoiskService kinopoiskService;
 
     public Set<MovieDto> getMovies() {
@@ -46,6 +47,9 @@ public class MovieService {
             tagService.saveAll(movie.getTags());
         }
         movieRepository.save(movie);
+        if (!CollectionUtils.isEmpty(movie.getDescripts())) {
+            movie.getDescripts().stream().forEach(desc -> descriptService.save(movie, desc));
+        }
     }
 
     public void deleteById(Long id) {
