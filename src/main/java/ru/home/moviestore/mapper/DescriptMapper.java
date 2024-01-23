@@ -6,6 +6,7 @@ import ru.home.moviestore.kinopoisk.model.Film;
 import ru.home.moviestore.model.Descript;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Optional;
 
 @UtilityClass
 public class DescriptMapper {
@@ -28,8 +29,15 @@ public class DescriptMapper {
     public DescriptDto getDescript(Film film) {
         StringBuilder sb = new StringBuilder();
         sb.append("<h1>");
-        sb.append(film.getSlogan());
+        sb.append(film.getNameRu());
+        Optional.ofNullable(film.getNameOriginal()).or(() -> Optional.ofNullable(film.getNameEn()))
+                        .ifPresent(engName -> sb.append(String.format(" (%s)", engName)));
         sb.append("</h1>\n");
+        if (film.getSlogan() != null) {
+            sb.append("<h2>");
+            sb.append(film.getSlogan());
+            sb.append("</h2>\n");
+        }
         sb.append("<p>");
         sb.append(film.getDescription());
         sb.append("</p>\n");
