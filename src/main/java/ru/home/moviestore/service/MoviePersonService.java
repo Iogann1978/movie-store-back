@@ -14,6 +14,7 @@ import ru.home.moviestore.model.MoviePerson;
 import ru.home.moviestore.repository.MoviePersonRepository;
 
 import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -48,18 +49,14 @@ public class MoviePersonService {
         moviePersonRepository.deleteAllByMovieId(movieId);
     }
 
-    public Integer getMoviesCount(Long personId, MoviePerson.Role role) {
-        return moviePersonRepository.getMoviesCountByPersonIdAndRole(personId, role);
-    }
-
-    public Integer getSeriesCount(Long personId, MoviePerson.Role role) {
-        return moviePersonRepository.getSeriesCountByPersonIdAndRole(personId, role);
+    public Integer getMoviesCount(Long personId, MoviePerson.Role role, boolean isSerial) {
+        return moviePersonRepository.getMoviesCountByPersonIdAndRole(personId, role, isSerial);
     }
 
     public Set<PersonDto> getPersons(MoviePerson.Role role) {
         return personService.findAllByRole(role).stream()
                 .map(person -> PersonMapper.entityToDto(person, role, this))
-                .collect(Collectors.toSet());
+                .collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
     public void savePersons(Long movieId) {

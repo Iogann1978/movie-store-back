@@ -8,6 +8,7 @@ import ru.home.moviestore.mapper.MovieMapper;
 import ru.home.moviestore.model.Movie;
 import ru.home.moviestore.repository.MovieRepository;
 
+import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -30,7 +31,7 @@ public class MovieService {
     public Set<MovieDto> getMovies(Boolean isSerial) {
         return movieRepository.findAllMovies(isSerial).stream()
                 .map(MovieMapper::entityToDto)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
     public Optional<MovieDto> getMovie(Long id) {

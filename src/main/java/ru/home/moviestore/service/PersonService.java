@@ -30,8 +30,9 @@ public class PersonService {
                 .map(PersonMapper::entityToDto);
     }
 
-    public Set<Person> findAllByRole(MoviePerson.Role role) {
-        return personRepository.findAllByRole(role).stream().collect(Collectors.toSet());
+    public List<Person> findAllByRole(MoviePerson.Role role) {
+        return personRepository.findAllByRole(role).stream()
+                .collect(Collectors.toList());
     }
 
     public void deleteWithNullMovie() {
