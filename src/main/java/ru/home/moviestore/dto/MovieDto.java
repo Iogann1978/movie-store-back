@@ -14,7 +14,7 @@ public class MovieDto {
     private Integer externalRating;
     private Integer internalRating;
     private Integer year;
-    private Integer state;
+    private String state;
     private Integer duration;
     private Boolean serial;
     private Set<String> tags;

@@ -30,7 +30,7 @@ public class MovieMapper {
                 .duration(dto.getDuration())
                 .year(dto.getYear())
                 .serial(dto.getSerial())
-                .state(Movie.State.values()[dto.getState()])
+                .state(Movie.State.values()[Integer.valueOf(dto.getState())])
                 .countries(getContries(dto.getCountries()))
                 .tags(getTags(dto.getTags()))
                 .descripts(getDescripts(dto.getDescripts()))
@@ -47,7 +47,7 @@ public class MovieMapper {
                 .serial(entity.getSerial())
                 .duration(entity.getDuration())
                 .year(entity.getYear())
-                .state(entity.getState().ordinal())
+                .state(String.valueOf(entity.getState().ordinal()))
                 .countries(getContriesDto(entity.getCountries()))
                 .tags(getTagsDto(entity.getTags()))
                 .descripts(getDescriptsDto(entity.getDescripts()))
@@ -66,7 +66,7 @@ public class MovieMapper {
                 .tags(getTags(film.getGenres()))
                 .countries(getCountries(film.getCountries()))
                 .descripts(getDescript(film))
-                .state(0)
+                .state("0")
                 .build();
     }
 

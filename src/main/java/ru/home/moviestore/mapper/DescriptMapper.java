@@ -1,7 +1,6 @@
 package ru.home.moviestore.mapper;
 
 import lombok.experimental.UtilityClass;
-import org.apache.tomcat.util.codec.binary.StringUtils;
 import ru.home.moviestore.dto.DescriptDto;
 import ru.home.moviestore.kinopoisk.model.Film;
 import ru.home.moviestore.model.Descript;
