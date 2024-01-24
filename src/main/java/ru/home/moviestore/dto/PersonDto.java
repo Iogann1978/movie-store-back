@@ -9,6 +9,6 @@ public class PersonDto {
     private Long id;
     private String name;
     private String originName;
-    private Integer moviesCount;
-    private Integer seriesCount;
+    private Long moviesCount;
+    private Long seriesCount;
 }

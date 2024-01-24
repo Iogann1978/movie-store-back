@@ -95,8 +95,10 @@
                             <generateApiTests>false</generateApiTests>
                             <generateModelTests>false</generateModelTests>
                             <configOptions>
+                                <java8>true</java8>
                                 <dateLibrary>java8-localdatetime</dateLibrary>
                                 <openApiNullable>true</openApiNullable>
+                                <useOptional>true</useOptional>
                             </configOptions>
                             <typeMappings>
                                 <typeMapping>integer=Long</typeMapping>

@@ -18,4 +18,8 @@ public class Person {
     private String name;
     @Column(nullable = false)
     private String originName;
+    @Transient
+    private Long moviesCount;
+    @Transient
+    private Long seriesCount;
 }

@@ -11,6 +11,7 @@ import ru.home.moviestore.mapper.MovieMapper;
 import ru.home.moviestore.mapper.MoviePersonMapper;
 import ru.home.moviestore.mapper.PersonMapper;
 import ru.home.moviestore.model.MoviePerson;
+import ru.home.moviestore.model.Stat;
 import ru.home.moviestore.repository.MoviePersonRepository;
 
 import java.util.Arrays;
@@ -55,7 +56,7 @@ public class MoviePersonService {
 
     public Set<PersonDto> getPersons(MoviePerson.Role role) {
         return personService.findAllByRole(role).stream()
-                .map(person -> PersonMapper.entityToDto(person, role, this))
+                .map(PersonMapper::entityToDtoWithCount)
                 .collect(Collectors.toCollection(LinkedHashSet::new));
     }
 

@@ -26,20 +26,18 @@ public class PersonMapper {
                 .id(entity.getId())
                 .name(entity.getName())
                 .originName(entity.getOriginName())
-                .moviesCount(0)
-                .seriesCount(0)
+                .moviesCount(0L)
+                .seriesCount(0L)
                 .build();
     }
 
-    public PersonDto entityToDto(Person entity, MoviePerson.Role role, MoviePersonService moviePersonService) {
-        Integer moviesCount = moviePersonService.getMoviesCount(entity.getId(), role, true);
-        Integer seriesCount = moviePersonService.getMoviesCount(entity.getId(), role, false);
+    public PersonDto entityToDtoWithCount(Person entity) {
         return PersonDto.builder()
                 .id(entity.getId())
                 .name(entity.getName())
                 .originName(entity.getOriginName())
-                .moviesCount(moviesCount)
-                .seriesCount(seriesCount)
+                .moviesCount(entity.getMoviesCount())
+                .seriesCount(entity.getSeriesCount())
                 .build();
     }
 
