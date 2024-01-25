@@ -1,6 +1,6 @@
 package ru.home.moviestore.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import org.openapitools.jackson.nullable.JsonNullableModule;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -19,7 +19,7 @@ public class WebConfig {
 
     @Bean
     public RestTemplate restTemplate() {
-        var objectMapper = new ObjectMapper().registerModule(new JsonNullableModule());
+        var objectMapper = new JsonMapper().registerModule(new JsonNullableModule());
         var httpMessageConverter = new MappingJackson2HttpMessageConverter(objectMapper);
         var restTemplate = new RestTemplateBuilder().build();
         restTemplate.getMessageConverters().add(0, httpMessageConverter);
