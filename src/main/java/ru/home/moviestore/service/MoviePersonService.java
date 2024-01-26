@@ -11,10 +11,10 @@ import ru.home.moviestore.mapper.MovieMapper;
 import ru.home.moviestore.mapper.MoviePersonMapper;
 import ru.home.moviestore.mapper.PersonMapper;
 import ru.home.moviestore.model.MoviePerson;
-import ru.home.moviestore.model.Stat;
 import ru.home.moviestore.repository.MoviePersonRepository;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -23,6 +23,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class MoviePersonService {
     private static final Set<String> ROLES = Arrays.stream(MoviePerson.Role.values()).map(MoviePerson.Role::name).collect(Collectors.toSet());
+    private static final Comparator<PersonDto> CMP1 = Comparator.comparing(p -> p.getSeriesCount() + p.getMoviesCount());
+    private static final Comparator<PersonDto> CMP2 = CMP1.reversed().thenComparing(PersonDto::getName);
     private final MovieService movieService;
     private final PersonService personService;
     private final MoviePersonRepository moviePersonRepository;
@@ -50,13 +52,10 @@ public class MoviePersonService {
         moviePersonRepository.deleteAllByMovieId(movieId);
     }
 
-    public Integer getMoviesCount(Long personId, MoviePerson.Role role, boolean isSerial) {
-        return moviePersonRepository.getMoviesCountByPersonIdAndRole(personId, role, isSerial);
-    }
-
     public Set<PersonDto> getPersons(MoviePerson.Role role) {
         return personService.findAllByRole(role).stream()
                 .map(PersonMapper::entityToDtoWithCount)
+                .sorted(CMP2)
                 .collect(Collectors.toCollection(LinkedHashSet::new));
     }
 

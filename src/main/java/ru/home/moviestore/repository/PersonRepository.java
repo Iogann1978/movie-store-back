@@ -14,7 +14,7 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
             "FROM Person p JOIN MoviePerson mp ON p.id = mp.personId " +
             "JOIN Movie m ON m.id = mp.movieId " +
             "WHERE mp.role = :role " +
-            "GROUP BY p.id, p.name, p.originName ORDER BY p.name")
+            "GROUP BY p.id, p.name, p.originName")
     List<Person> findAllByRole(MoviePerson.Role role);
     @Query("SELECT p FROM Person p LEFT JOIN MoviePerson mp on p.id = mp.personId WHERE mp.movieId is null")
     List<Person> findNullMovie();
