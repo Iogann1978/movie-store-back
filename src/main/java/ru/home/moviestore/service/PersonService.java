@@ -27,7 +27,7 @@ public class PersonService {
 
     public Optional<PersonDto> getPerson(Long id) {
         return personRepository.findById(id)
-                .map(PersonMapper::entityToDto);
+                .map(PersonMapper::entityToDtoWithCount);
     }
 
     public List<Person> findAllByRole(MoviePerson.Role role) {
