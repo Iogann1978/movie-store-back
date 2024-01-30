@@ -10,9 +10,10 @@ import java.util.List;
 
 @Repository
 public interface PersonRepository extends JpaRepository<Person, Long> {
-    @Query("SELECT new Person(p.id, p.name, p.originName, SUM(CASE WHEN m.serial = false THEN 1 ELSE 0 END), SUM(CASE WHEN m.serial = true THEN 1 ELSE 0 END)) " +
+    @Query("SELECT new Person(p.id, p.name, p.originName, COUNT(DISTINCT m1.id), COUNT(DISTINCT m2.id)) " +
             "FROM Person p JOIN MoviePerson mp ON p.id = mp.personId " +
-            "JOIN Movie m ON m.id = mp.movieId " +
+            "LEFT JOIN Movie m1 ON m1.id = mp.movieId AND m1.serial = false " +
+            "LEFT JOIN Movie m2 ON m2.id = mp.movieId AND m2.serial = true " +
             "WHERE mp.role = :role " +
             "GROUP BY p.id, p.name, p.originName")
     List<Person> findAllByRole(MoviePerson.Role role);
