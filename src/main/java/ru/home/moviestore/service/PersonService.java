@@ -26,7 +26,7 @@ public class PersonService {
     }
 
     public Optional<PersonDto> getPerson(Long id) {
-        return personRepository.findById(id)
+        return personRepository.findPerson(id)
                 .map(PersonMapper::entityToDtoWithCount);
     }
 
