@@ -10,6 +10,9 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(indexes = {
+        @Index(columnList = "SERIAL")
+})
 public class Movie {
     public enum State {
         SEEN, PLANNED, LEFT;

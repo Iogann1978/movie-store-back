@@ -1,0 +1,5 @@
+/*C2*/SET SCHEMA PUBLIC
+create index IDXsgmq0watvyikkitx40u2jj4vk on movie (serial)
+create index IDXrkpfn710qd95y9lnwl0deg2v5 on movie_person (movie_id)
+create index IDXai49dxo0mr16kyn0i5e9q61yh on movie_person (person_id)
+create index IDXssvlua40n7v01r1is1lmvn3c0 on movie_person (role)
