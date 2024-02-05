@@ -39,7 +39,7 @@ public class MoviePersonService {
     public Set<MoviePersonDto> getMovies(Long personId) {
         return moviePersonRepository.findMoviesByPersonId(personId)
                 .stream().map(mp -> MoviePersonMapper.entityToDto(mp, movieService, personService))
-                .collect(Collectors.toSet());
+                .collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
     public void saveMoviePerson(MoviePerson moviePerson) {
