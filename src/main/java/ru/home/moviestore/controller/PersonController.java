@@ -9,7 +9,7 @@ import ru.home.moviestore.model.MoviePerson;
 import ru.home.moviestore.service.MoviePersonService;
 import ru.home.moviestore.service.PersonService;
 
-import java.util.Set;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,13 +19,13 @@ public class PersonController {
     private final MoviePersonService moviePersonService;
 
     @GetMapping
-    public ResponseEntity<Set<PersonDto>> getPersons(@RequestParam("role") Integer roleIndex) {
+    public ResponseEntity<List<PersonDto>> getPersons(@RequestParam("role") Integer roleIndex) {
         if (roleIndex < 0 || roleIndex >= MoviePerson.Role.values().length) {
             return ResponseEntity.badRequest().build();
         }
 
         MoviePerson.Role role = MoviePerson.Role.values()[roleIndex];
-        Set<PersonDto> persons = moviePersonService.getPersons(role);
+        List<PersonDto> persons = moviePersonService.getPersons(role);
         return !CollectionUtils.isEmpty(persons) ?
                 ResponseEntity.ok(persons) :
                 ResponseEntity.noContent().build();

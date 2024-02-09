@@ -13,10 +13,7 @@ import ru.home.moviestore.mapper.PersonMapper;
 import ru.home.moviestore.model.MoviePerson;
 import ru.home.moviestore.repository.MoviePersonRepository;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,16 +27,16 @@ public class MoviePersonService {
     private final MoviePersonRepository moviePersonRepository;
     private final KinopoiskService kinopoiskService;
 
-    public Set<MoviePersonDto> getPersons(Long movieId) {
+    public List<MoviePersonDto> getPersons(Long movieId) {
         return moviePersonRepository.findPersonsByMovieId(movieId)
                 .stream().map(mp -> MoviePersonMapper.entityToDto(mp, movieService, personService))
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
 
-    public Set<MoviePersonDto> getMovies(Long personId) {
+    public List<MoviePersonDto> getMovies(Long personId) {
         return moviePersonRepository.findMoviesByPersonId(personId)
                 .stream().map(mp -> MoviePersonMapper.entityToDto(mp, movieService, personService))
-                .collect(Collectors.toCollection(LinkedHashSet::new));
+                .collect(Collectors.toList());
     }
 
     public void saveMoviePerson(MoviePerson moviePerson) {
@@ -52,11 +49,11 @@ public class MoviePersonService {
         moviePersonRepository.deleteAllByMovieId(movieId);
     }
 
-    public Set<PersonDto> getPersons(MoviePerson.Role role) {
+    public List<PersonDto> getPersons(MoviePerson.Role role) {
         return personService.findAllByRole(role).stream()
                 .map(PersonMapper::entityToDtoWithCount)
                 .sorted(CMP2)
-                .collect(Collectors.toCollection(LinkedHashSet::new));
+                .collect(Collectors.toList());
     }
 
     public void savePersons(Long movieId) {

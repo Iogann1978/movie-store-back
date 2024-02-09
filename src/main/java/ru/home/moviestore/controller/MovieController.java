@@ -8,7 +8,7 @@ import ru.home.moviestore.dto.MovieDto;
 import ru.home.moviestore.service.MoviePersonService;
 import ru.home.moviestore.service.MovieService;
 
-import java.util.Set;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,8 +18,8 @@ public class MovieController {
     private final MoviePersonService moviePersonService;
 
     @GetMapping
-    public ResponseEntity<Set<MovieDto>> getMovies(@RequestParam Boolean isSerial) {
-        Set<MovieDto> movies = movieService.getMovies(isSerial);
+    public ResponseEntity<List<MovieDto>> getMovies(@RequestParam Boolean isSerial) {
+        List<MovieDto> movies = movieService.getMovies(isSerial);
         return !CollectionUtils.isEmpty(movies) ?
                 ResponseEntity.ok(movies) :
                 ResponseEntity.noContent().build();
