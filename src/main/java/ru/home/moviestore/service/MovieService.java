@@ -10,7 +10,6 @@ import ru.home.moviestore.repository.MovieRepository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,10 +21,10 @@ public class MovieService {
     private final DescriptService descriptService;
     private final KinopoiskService kinopoiskService;
 
-    public Set<MovieDto> getMovies() {
+    public List<MovieDto> getMovies() {
         return movieRepository.findAll().stream()
                 .map(MovieMapper::entityToDto)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
 
     public List<MovieDto> getMovies(Boolean isSerial) {
