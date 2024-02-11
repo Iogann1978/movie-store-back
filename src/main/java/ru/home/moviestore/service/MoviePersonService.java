@@ -56,6 +56,13 @@ public class MoviePersonService {
                 .collect(Collectors.toList());
     }
 
+    public List<PersonDto> getPersons(String name) {
+        return personService.findAllByName(name).stream()
+                .map(PersonMapper::entityToDtoWithCount)
+                .sorted(CMP2)
+                .collect(Collectors.toList());
+    }
+
     public void savePersons(Long movieId) {
         Set<StaffResponse> staffs = kinopoiskService.findPersons(movieId);
         if (!CollectionUtils.isEmpty(staffs)) {

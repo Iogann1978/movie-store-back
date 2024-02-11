@@ -19,13 +19,17 @@ public class PersonController {
     private final MoviePersonService moviePersonService;
 
     @GetMapping
-    public ResponseEntity<List<PersonDto>> getPersons(@RequestParam("role") Integer roleIndex) {
-        if (roleIndex < 0 || roleIndex >= MoviePerson.Role.values().length) {
+    public ResponseEntity<List<PersonDto>> getPersons(
+            @RequestParam(name = "role", required = false) Integer roleIndex,
+            @RequestParam(required = false) String name
+    ) {
+        if (roleIndex != null && (roleIndex < 0 || roleIndex >= MoviePerson.Role.values().length)) {
             return ResponseEntity.badRequest().build();
         }
 
-        MoviePerson.Role role = MoviePerson.Role.values()[roleIndex];
-        List<PersonDto> persons = moviePersonService.getPersons(role);
+        List<PersonDto> persons = roleIndex != null ?
+                moviePersonService.getPersons(MoviePerson.Role.values()[roleIndex]) :
+                moviePersonService.getPersons(name);
         return !CollectionUtils.isEmpty(persons) ?
                 ResponseEntity.ok(persons) :
                 ResponseEntity.noContent().build();

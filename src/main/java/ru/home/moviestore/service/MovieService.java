@@ -33,6 +33,13 @@ public class MovieService {
                 .collect(Collectors.toList());
     }
 
+    public List<MovieDto> getMovies(String title) {
+        String toFind = String.format("%%%s%%", title);
+        return movieRepository.findAllMoviesByTitle(toFind).stream()
+                .map(MovieMapper::entityToDto)
+                .collect(Collectors.toList());
+    }
+
     public Optional<MovieDto> getMovie(Long id) {
         return movieRepository.existsById(id) ?
                 movieRepository.findById(id).map(MovieMapper::entityToDto) :

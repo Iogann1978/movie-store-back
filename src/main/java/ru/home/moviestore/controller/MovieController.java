@@ -18,8 +18,12 @@ public class MovieController {
     private final MoviePersonService moviePersonService;
 
     @GetMapping
-    public ResponseEntity<List<MovieDto>> getMovies(@RequestParam Boolean isSerial) {
-        List<MovieDto> movies = movieService.getMovies(isSerial);
+    public ResponseEntity<List<MovieDto>> getMovies(
+            @RequestParam(required = false) Boolean isSerial,
+            @RequestParam(required = false) String title
+    ) {
+        List<MovieDto> movies = isSerial != null ?
+                movieService.getMovies(isSerial) : movieService.getMovies(title);
         return !CollectionUtils.isEmpty(movies) ?
                 ResponseEntity.ok(movies) :
                 ResponseEntity.noContent().build();

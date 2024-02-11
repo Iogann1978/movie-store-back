@@ -35,6 +35,12 @@ public class PersonService {
                 .collect(Collectors.toList());
     }
 
+    public List<Person> findAllByName(String name) {
+        String toFind = String.format("%%%s%%", name);
+        return personRepository.findAllByName(toFind).stream()
+                .collect(Collectors.toList());
+    }
+
     public void deleteWithNullMovie() {
         List<Person> persons = personRepository.findNullMovie();
         if (!CollectionUtils.isEmpty(persons)) {
