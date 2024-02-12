@@ -12,6 +12,6 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     @Query("SELECT m FROM Movie m WHERE m.serial = :isSerial ORDER BY m.title")
     List<Movie> findAllMovies(boolean isSerial);
 
-    @Query("SELECT m FROM Movie m WHERE m.title LIKE :title ORDER BY m.title")
+    @Query("SELECT m FROM Movie m WHERE LOWER(m.title) LIKE :title ORDER BY m.title")
     List<Movie> findAllMoviesByTitle(String title);
 }

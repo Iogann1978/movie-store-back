@@ -11,7 +11,8 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @Table(indexes = {
-        @Index(columnList = "SERIAL")
+        @Index(columnList = "SERIAL"),
+        @Index(columnList = "TITLE")
 })
 public class Movie {
     public enum State {

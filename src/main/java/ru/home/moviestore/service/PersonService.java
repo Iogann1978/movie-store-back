@@ -36,7 +36,7 @@ public class PersonService {
     }
 
     public List<Person> findAllByName(String name) {
-        String toFind = String.format("%%%s%%", name);
+        String toFind = String.format("%%%s%%", name.toLowerCase());
         return personRepository.findAllByName(toFind).stream()
                 .collect(Collectors.toList());
     }

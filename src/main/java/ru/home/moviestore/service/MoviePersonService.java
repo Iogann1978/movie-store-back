@@ -49,6 +49,12 @@ public class MoviePersonService {
         moviePersonRepository.deleteAllByMovieId(movieId);
     }
 
+    public List<PersonDto> getPersons() {
+        return personService.getPersons().stream()
+                .sorted(CMP2)
+                .collect(Collectors.toList());
+    }
+
     public List<PersonDto> getPersons(MoviePerson.Role role) {
         return personService.findAllByRole(role).stream()
                 .map(PersonMapper::entityToDtoWithCount)

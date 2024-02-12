@@ -34,7 +34,7 @@ public class MovieService {
     }
 
     public List<MovieDto> getMovies(String title) {
-        String toFind = String.format("%%%s%%", title);
+        String toFind = String.format("%%%s%%", title.toLowerCase());
         return movieRepository.findAllMoviesByTitle(toFind).stream()
                 .map(MovieMapper::entityToDto)
                 .collect(Collectors.toList());

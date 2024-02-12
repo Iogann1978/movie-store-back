@@ -1,5 +1,6 @@
 package ru.home.moviestore.controller;
 
+import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
@@ -9,6 +10,7 @@ import ru.home.moviestore.model.MoviePerson;
 import ru.home.moviestore.service.MoviePersonService;
 import ru.home.moviestore.service.PersonService;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -23,13 +25,19 @@ public class PersonController {
             @RequestParam(name = "role", required = false) Integer roleIndex,
             @RequestParam(required = false) String name
     ) {
-        if (roleIndex != null && (roleIndex < 0 || roleIndex >= MoviePerson.Role.values().length)) {
-            return ResponseEntity.badRequest().build();
+        List<PersonDto> persons = Collections.EMPTY_LIST;
+        if (roleIndex != null) {
+            if (roleIndex < 0 || roleIndex >= MoviePerson.Role.values().length) {
+                return ResponseEntity.badRequest().build();
+            }
+            MoviePerson.Role role = MoviePerson.Role.values()[roleIndex];
+            persons = moviePersonService.getPersons(role);
+        } else if (StringUtils.isNotEmpty(name)) {
+            persons = moviePersonService.getPersons(name);
+        } else {
+            persons = moviePersonService.getPersons();
         }
 
-        List<PersonDto> persons = roleIndex != null ?
-                moviePersonService.getPersons(MoviePerson.Role.values()[roleIndex]) :
-                moviePersonService.getPersons(name);
         return !CollectionUtils.isEmpty(persons) ?
                 ResponseEntity.ok(persons) :
                 ResponseEntity.noContent().build();

@@ -1,5 +1,6 @@
 package ru.home.moviestore.controller;
 
+import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
@@ -8,6 +9,7 @@ import ru.home.moviestore.dto.MovieDto;
 import ru.home.moviestore.service.MoviePersonService;
 import ru.home.moviestore.service.MovieService;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -22,8 +24,14 @@ public class MovieController {
             @RequestParam(required = false) Boolean isSerial,
             @RequestParam(required = false) String title
     ) {
-        List<MovieDto> movies = isSerial != null ?
-                movieService.getMovies(isSerial) : movieService.getMovies(title);
+        List<MovieDto> movies = Collections.EMPTY_LIST;
+        if (isSerial != null) {
+            movies = movieService.getMovies(isSerial);
+        } else if (StringUtils.isNotEmpty(title)) {
+            movies = movieService.getMovies(title);
+        } else {
+            movies = movieService.getMovies();
+        }
         return !CollectionUtils.isEmpty(movies) ?
                 ResponseEntity.ok(movies) :
                 ResponseEntity.noContent().build();
