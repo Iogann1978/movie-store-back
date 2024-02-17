@@ -3,7 +3,6 @@ package ru.home.moviestore.controller;
 import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import ru.home.moviestore.dto.MovieDto;
 import ru.home.moviestore.service.MoviePersonService;
@@ -32,9 +31,7 @@ public class MovieController {
         } else {
             movies = movieService.getMovies();
         }
-        return !CollectionUtils.isEmpty(movies) ?
-                ResponseEntity.ok(movies) :
-                ResponseEntity.noContent().build();
+        return ResponseEntity.ok(movies);
     }
 
     @GetMapping("/{id}")

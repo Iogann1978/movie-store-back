@@ -2,7 +2,6 @@ package ru.home.moviestore.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import ru.home.moviestore.dto.MoviePersonDto;
 import ru.home.moviestore.service.MoviePersonService;
@@ -18,16 +17,12 @@ public class MoviePersonController {
     @GetMapping("/persons/{movieId}")
     public ResponseEntity<List<MoviePersonDto>> getPersons(@PathVariable Long movieId) {
         List<MoviePersonDto> mps = moviePersonService.getPersons(movieId);
-        return !CollectionUtils.isEmpty(mps) ?
-                ResponseEntity.ok(mps) :
-                ResponseEntity.noContent().build();
+        return ResponseEntity.ok(mps);
     }
 
     @GetMapping("/movies/{personId}")
     public ResponseEntity<List<MoviePersonDto>> getMovies(@PathVariable Long personId) {
         List<MoviePersonDto> mps = moviePersonService.getMovies(personId);
-        return !CollectionUtils.isEmpty(mps) ?
-                ResponseEntity.ok(mps) :
-                ResponseEntity.noContent().build();
+        return ResponseEntity.ok(mps);
     }
 }
