@@ -2,6 +2,7 @@ package ru.home.moviestore.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import ru.home.moviestore.dto.MovieDto;
 import ru.home.moviestore.dto.MoviePersonDto;
@@ -39,6 +40,7 @@ public class MoviePersonService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public void saveMoviePerson(MoviePerson moviePerson) {
         if (!moviePersonRepository.findAllByMovieIdAndPersonIdAndRole(moviePerson.getMovieId(), moviePerson.getPersonId(), moviePerson.getRole()).isPresent()) {
             moviePersonRepository.save(moviePerson);
@@ -69,6 +71,7 @@ public class MoviePersonService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public void savePersons(Long movieId) {
         Set<StaffResponse> staffs = kinopoiskService.findPersons(movieId);
         if (!CollectionUtils.isEmpty(staffs)) {
@@ -83,16 +86,19 @@ public class MoviePersonService {
         }
     }
 
+    @Transactional
     public void deletePersons(Long movieId) {
         deleteByMovieId(movieId);
         personService.deleteWithNullMovie();
     }
 
+    @Transactional
     public void saveMovie(MovieDto dto) {
         movieService.saveMovie(MovieMapper.dtoToEntity(dto));
         savePersons(dto.getId());
     }
 
+    @Transactional
     public void deleteMovie(Long id) {
         deletePersons(id);
         movieService.deleteById(id);

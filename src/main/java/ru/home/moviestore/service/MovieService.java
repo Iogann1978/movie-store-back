@@ -2,6 +2,7 @@ package ru.home.moviestore.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import ru.home.moviestore.dto.MovieDto;
 import ru.home.moviestore.mapper.MovieMapper;
@@ -22,7 +23,7 @@ public class MovieService {
     private final KinopoiskService kinopoiskService;
 
     public List<MovieDto> getMovies() {
-        return movieRepository.findAll().stream()
+        return movieRepository.findAllMovies().stream()
                 .map(MovieMapper::entityToDto)
                 .collect(Collectors.toList());
     }
@@ -46,6 +47,7 @@ public class MovieService {
                 kinopoiskService.findMovie(id);
     }
 
+    @Transactional
     public void saveMovie(Movie movie) {
         if (!CollectionUtils.isEmpty(movie.getCountries())) {
             countryService.saveAll(movie.getCountries());

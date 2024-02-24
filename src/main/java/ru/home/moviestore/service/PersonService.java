@@ -2,6 +2,7 @@ package ru.home.moviestore.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import ru.home.moviestore.dto.PersonDto;
 import ru.home.moviestore.mapper.PersonMapper;
@@ -41,6 +42,7 @@ public class PersonService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public void deleteWithNullMovie() {
         List<Person> persons = personRepository.findNullMovie();
         if (!CollectionUtils.isEmpty(persons)) {
