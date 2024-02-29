@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import ru.home.moviestore.model.Movie;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Long> {
@@ -21,4 +22,8 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     @EntityGraph(attributePaths = {"tags", "countries", "descripts"})
     @Query("SELECT m FROM Movie m ORDER BY m.title")
     List<Movie> findAllMovies();
+
+    @EntityGraph(attributePaths = {"tags", "countries", "descripts"})
+    @Query("SELECT m FROM Movie m WHERE m.id = :id")
+    Optional<Movie> findMovieById(Long id);
 }

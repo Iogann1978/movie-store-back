@@ -28,7 +28,7 @@ public class Movie {
     private Integer externalRating;
     @Column(nullable = false)
     private Integer internalRating;
-    private Integer year;
+    private Integer releaseYear;
     @Column(nullable = false)
     private State state;
     private Integer duration;

@@ -22,6 +22,6 @@ public class Descript {
     private Movie movie;
     @EqualsAndHashCode.Exclude
     @Lob
-    @Column(length = 10000)
+    @Column(name = "text", columnDefinition = "BLOB")
     private byte[] text;
 }

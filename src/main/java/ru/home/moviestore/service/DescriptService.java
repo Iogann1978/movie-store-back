@@ -2,6 +2,7 @@ package ru.home.moviestore.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.home.moviestore.dto.DescriptDto;
 import ru.home.moviestore.mapper.DescriptMapper;
 import ru.home.moviestore.model.Descript;
@@ -36,6 +37,7 @@ public class DescriptService {
         descriptRepository.save(descript);
     }
 
+    @Transactional
     public void save(Movie movie, Descript descript) {
         descript.setMovie(movie);
         descriptRepository.save(descript);

@@ -26,7 +26,7 @@ public class MoviePersonMapper {
         MovieDto movieDto = movieService.getMovie(entity.getMovieId())
                 .orElseGet(() -> MovieDto.builder().id(entity.getMovieId()).build());
         PersonDto personDto = personService.getPerson(entity.getPersonId())
-                .orElseGet(() -> PersonDto.builder().id(entity.getId()).build());
+                .orElseGet(() -> PersonDto.builder().id(entity.getPersonId()).build());
         return MoviePersonDto.builder()
                 .movie(movieDto)
                 .person(personDto)

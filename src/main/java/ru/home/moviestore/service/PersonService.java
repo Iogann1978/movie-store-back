@@ -51,7 +51,9 @@ public class PersonService {
     }
 
     public void savePerson(PersonDto dto) {
-        personRepository.save(PersonMapper.dtoToEntity(dto));
+        if (!personRepository.existsById(dto.getId())) {
+            personRepository.save(PersonMapper.dtoToEntity(dto));
+        }
     }
 
 }

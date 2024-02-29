@@ -43,7 +43,7 @@ public class MovieService {
 
     public Optional<MovieDto> getMovie(Long id) {
         return movieRepository.existsById(id) ?
-                movieRepository.findById(id).map(MovieMapper::entityToDto) :
+                movieRepository.findMovieById(id).map(MovieMapper::entityToDto) :
                 kinopoiskService.findMovie(id);
     }
 

@@ -1,5 +1,6 @@
 package ru.home.moviestore.service;
 
+import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -77,6 +78,7 @@ public class MoviePersonService {
         if (!CollectionUtils.isEmpty(staffs)) {
             staffs.stream()
                     .filter(staff -> ROLES.contains(staff.getProfessionKey().name()))
+                    .filter(staff -> descriptFilter(staff.getDescription()))
                     .map(staff -> MoviePersonMapper.fromStaff(movieId, staff))
                     .forEach(this::saveMoviePerson);
             staffs.stream()
@@ -102,5 +104,9 @@ public class MoviePersonService {
     public void deleteMovie(Long id) {
         deletePersons(id);
         movieService.deleteById(id);
+    }
+
+    private boolean descriptFilter(String description) {
+        return StringUtils.isEmpty(description) || !description.contains("в титрах не указан");
     }
 }

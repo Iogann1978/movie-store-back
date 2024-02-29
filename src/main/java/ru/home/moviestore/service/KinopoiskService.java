@@ -12,10 +12,7 @@ import ru.home.moviestore.kinopoisk.model.Film;
 import ru.home.moviestore.kinopoisk.model.StaffResponse;
 import ru.home.moviestore.mapper.MovieMapper;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,6 +35,6 @@ public class KinopoiskService {
             log.error(e.getMessage(), e);
         }
         return CollectionUtils.isEmpty(staffs) ? Collections.EMPTY_SET :
-                staffs.stream().collect(Collectors.toSet());
+                staffs.stream().collect(Collectors.toCollection(LinkedHashSet::new));
     }
 }
