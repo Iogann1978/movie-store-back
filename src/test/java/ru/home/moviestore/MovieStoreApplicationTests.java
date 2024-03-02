@@ -10,18 +10,12 @@ import org.openapitools.jackson.nullable.JsonNullableModule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.CollectionUtils;
-import ru.home.moviestore.dto.MovieDto;
 import ru.home.moviestore.dto.MoviePersonDto;
 import ru.home.moviestore.dto.PersonDto;
 import ru.home.moviestore.mapper.MovieMapper;
 import ru.home.moviestore.mapper.MoviePersonMapper;
-import ru.home.moviestore.service.MoviePersonService;
-import ru.home.moviestore.service.MovieService;
 import ru.home.moviestore.service.PersonService;
 
-import java.io.IOException;
-import java.nio.file.Paths;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
