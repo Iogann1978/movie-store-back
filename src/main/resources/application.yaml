@@ -10,6 +10,9 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: update
+  h2:
+    console:
+      enabled: true
 
 kinopoisk:
   x-api-key: ee97857e-9b91-4df5-b64f-576965097621

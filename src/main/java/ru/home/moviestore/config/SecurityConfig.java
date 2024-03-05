@@ -21,7 +21,8 @@ public class SecurityConfig {
         security.httpBasic(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(configurer -> configurer.configurationSource(corsConfigurationSource))
-                .headers(headers -> headers.contentTypeOptions(HeadersConfigurer.ContentTypeOptionsConfig::disable));
+                .headers(headers -> headers.contentTypeOptions(HeadersConfigurer.ContentTypeOptionsConfig::disable))
+                .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
         return security.build();
     }
 

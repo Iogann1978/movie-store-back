@@ -668,3 +668,41 @@ curl -X 'GET' \
   }
 ]
 ```
+
+## Запросы в базу
+```sql
+select COUNTRY_ID, count(MOVIE_ID)
+from MOVIE_COUNTRY
+group by COUNTRY_ID
+order by 2 desc, 1;
+```
+
+```sql
+select mc.COUNTRY_ID, count(mc.MOVIE_ID)
+from MOVIE_COUNTRY mc, MOVIE m
+where m.ID = mc.MOVIE_ID and m.INTERNAL_RATING in (4, 5)
+group by  mc.COUNTRY_ID
+order by 2 desc, 1
+```
+
+```sql
+select TITLE, ORIGIN_TITLE
+from MOVIE
+where INTERNAL_RATING in (4, 5)
+order by INTERNAL_RATING desc, TITLE
+```
+
+```sql
+select TAG_ID, count(MOVIE_ID)
+from MOVIE_TAG
+group by  TAG_ID
+order by 2 desc, 1
+```
+
+```sql
+select mt.TAG_ID, count(mt.MOVIE_ID)
+from MOVIE_TAG mt, MOVIE m
+where m.ID = mt.MOVIE_ID and m.INTERNAL_RATING in (4, 5)
+group by mt.TAG_ID
+order by 2 desc, 1
+```
