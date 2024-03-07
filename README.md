@@ -669,8 +669,13 @@ curl -X 'GET' \
 ]
 ```
 
+## Консоль DB
+[http://localhost:8080/h2-console](H2 Console)
+
 ## Запросы в базу
+
 ```sql
+-- Популярность стран по фильмам
 select COUNTRY_ID, count(MOVIE_ID)
 from MOVIE_COUNTRY
 group by COUNTRY_ID
@@ -678,6 +683,7 @@ order by 2 desc, 1;
 ```
 
 ```sql
+-- Рейтинг лучших стран по фильмам
 select mc.COUNTRY_ID, count(mc.MOVIE_ID)
 from MOVIE_COUNTRY mc, MOVIE m
 where m.ID = mc.MOVIE_ID and m.INTERNAL_RATING in (4, 5)
@@ -686,13 +692,15 @@ order by 2 desc, 1
 ```
 
 ```sql
-select TITLE, ORIGIN_TITLE
+-- Рейтинг лучших фильмов и сериалов
+select TITLE, ORIGIN_TITLE, SERIAL
 from MOVIE
 where INTERNAL_RATING in (4, 5)
-order by INTERNAL_RATING desc, TITLE
+order by SERIAL, INTERNAL_RATING desc, TITLE
 ```
 
 ```sql
+-- Популярные жанры
 select TAG_ID, count(MOVIE_ID)
 from MOVIE_TAG
 group by  TAG_ID
@@ -700,9 +708,21 @@ order by 2 desc, 1
 ```
 
 ```sql
+-- Рейтинг лучших жанров
 select mt.TAG_ID, count(mt.MOVIE_ID)
 from MOVIE_TAG mt, MOVIE m
 where m.ID = mt.MOVIE_ID and m.INTERNAL_RATING in (4, 5)
 group by mt.TAG_ID
 order by 2 desc, 1
+```
+
+```sql
+-- Лучший актёр (режиссёр, композитор)
+select p.NAME, count(m.ID)
+from MOVIE m, PERSON p, MOVIE_PERSON mp
+where mp.MOVIE_ID = m.ID and mp.PERSON_ID = p.ID
+and m.INTERNAL_RATING in (4, 5)
+and mp.ROLE = 0
+group by p.NAME
+order by 2 desc;
 ```

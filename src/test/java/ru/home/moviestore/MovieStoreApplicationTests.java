@@ -10,11 +10,14 @@ import org.openapitools.jackson.nullable.JsonNullableModule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.CollectionUtils;
+import ru.home.moviestore.dto.DescriptDto;
 import ru.home.moviestore.dto.MovieDto;
 import ru.home.moviestore.dto.MoviePersonDto;
 import ru.home.moviestore.dto.PersonDto;
+import ru.home.moviestore.mapper.DescriptMapper;
 import ru.home.moviestore.mapper.MovieMapper;
 import ru.home.moviestore.mapper.MoviePersonMapper;
+import ru.home.moviestore.model.Descript;
 import ru.home.moviestore.service.MoviePersonService;
 import ru.home.moviestore.service.MovieService;
 import ru.home.moviestore.service.PersonService;
@@ -101,6 +104,30 @@ class MovieStoreApplicationTests {
                         log.error("movieId is null");
                     });
         }
+    }
+
+    //@Test
+    void exportDescripts() throws IOException {
+        TypeReference<List<MovieDto>> moviesType = new TypeReference<>() {};
+        List<MovieDto> movies = OBJECT_MAPPER.readValue(Paths.get(FILENAME_MOVIES).toFile(), moviesType);
+        Map<Long, Set<DescriptDto>> mapDescripts = movies.stream().collect(Collectors.toMap(MovieDto::getId, MovieDto::getDescripts));
+        movies.stream()
+                .map(MovieDto::getId)
+                .flatMap(id -> movieService.getMovie(id).stream())
+                .filter(movie -> movie != null && CollectionUtils.isEmpty(movie.getDescripts()))
+                .map(MovieMapper::dtoToEntity)
+                .forEach(movie -> {
+                    Set<Descript> descripts = mapDescripts.get(movie.getId()).stream()
+                        .map(DescriptMapper::dtoToEntity)
+                        .map(descript -> {
+                            descript.setId(null);
+                            return descript;
+                        }).collect(Collectors.toSet());
+                    if (!CollectionUtils.isEmpty(descripts)) {
+                        movie.setDescripts(descripts);
+                        movieService.saveMovie(movie);
+                    }
+                });
     }
 
     private boolean descriptFilter(String description) {
