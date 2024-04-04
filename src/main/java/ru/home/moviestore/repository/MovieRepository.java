@@ -26,4 +26,14 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     @EntityGraph(attributePaths = {"tags", "countries", "descripts"})
     @Query("SELECT m FROM Movie m WHERE m.id = :id")
     Optional<Movie> findMovieById(Long id);
+
+    @Query("""
+        SELECT m
+        FROM Movie m
+        WHERE m.internalRating in (4, 5)
+        AND m.serial = :isSerial
+        ORDER BY m.internalRating desc, m.externalRating desc, m.title
+        LIMIT 1
+        """)
+    Optional<Movie> findBestMovie(boolean isSerial);
 }

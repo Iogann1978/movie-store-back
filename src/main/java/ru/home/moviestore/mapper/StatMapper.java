@@ -6,7 +6,7 @@ import ru.home.moviestore.model.Stat;
 
 @UtilityClass
 public class StatMapper {
-    public StatDto entityToDto(Stat entity) {
+    public StatDto entityToDto(Stat entity, String bests) {
         return StatDto.builder()
                 .moviesCount(entity.getMoviesCount())
                 .seriesCount(entity.getSeriesCount())
@@ -15,6 +15,7 @@ public class StatMapper {
                 .composersCount(entity.getComposersCount())
                 .totalMoviesCount(entity.getTotalMoviesCount())
                 .totalPersonsCount(entity.getTotalPersonsCount())
+                .bests(bests)
                 .build();
     }
 }

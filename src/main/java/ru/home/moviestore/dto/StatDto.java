@@ -17,4 +17,5 @@ public class StatDto {
     private Long composersCount;
     private Long totalMoviesCount;
     private Long totalPersonsCount;
+    private String bests;
 }

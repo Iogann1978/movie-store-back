@@ -692,14 +692,6 @@ order by 2 desc, 1
 ```
 
 ```sql
--- Рейтинг лучших фильмов и сериалов
-select TITLE, ORIGIN_TITLE, SERIAL
-from MOVIE
-where INTERNAL_RATING in (4, 5)
-order by SERIAL, INTERNAL_RATING desc, TITLE
-```
-
-```sql
 -- Популярные жанры
 select TAG_ID, count(MOVIE_ID)
 from MOVIE_TAG
@@ -717,12 +709,23 @@ order by 2 desc, 1
 ```
 
 ```sql
+-- Лучший фильм (сериал)
+select TITLE
+from MOVIE
+where INTERNAL_RATING in (4, 5)
+and SERIAL = FALSE
+order by INTERNAL_RATING desc, EXTERNAL_RATING desc, TITLE
+limit 1;
+```
+
+```sql
 -- Лучший актёр (режиссёр, композитор)
-select p.NAME, count(m.ID)
+select p.NAME, count(m.ID), avg(m.INTERNAL_RATING), avg(m.EXTERNAL_RATING)
 from MOVIE m, PERSON p, MOVIE_PERSON mp
 where mp.MOVIE_ID = m.ID and mp.PERSON_ID = p.ID
 and m.INTERNAL_RATING in (4, 5)
 and mp.ROLE = 0
 group by p.NAME
-order by 2 desc;
+order by 2 desc, 3 desc, 4 desc, 1
+limit 1;
 ```

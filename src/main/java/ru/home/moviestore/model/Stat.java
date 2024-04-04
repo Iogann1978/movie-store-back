@@ -19,4 +19,5 @@ public class Stat {
     private Long composersCount;
     private Long totalMoviesCount;
     private Long totalPersonsCount;
+    private String bests;
 }
