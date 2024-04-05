@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StatDto {
+    private Long id;
     private Long moviesCount;
     private Long seriesCount;
     private Long actorsCount;

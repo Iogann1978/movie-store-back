@@ -21,6 +21,7 @@ public class StatMapper {
 
     public StatDto entityToDto(Stat entity) {
         return StatDto.builder()
+                .id(entity.getId())
                 .moviesCount(entity.getMoviesCount())
                 .seriesCount(entity.getSeriesCount())
                 .actorsCount(entity.getActorsCount())
