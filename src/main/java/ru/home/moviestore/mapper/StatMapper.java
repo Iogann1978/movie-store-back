@@ -18,4 +18,17 @@ public class StatMapper {
                 .bests(bests)
                 .build();
     }
+
+    public StatDto entityToDto(Stat entity) {
+        return StatDto.builder()
+                .moviesCount(entity.getMoviesCount())
+                .seriesCount(entity.getSeriesCount())
+                .actorsCount(entity.getActorsCount())
+                .directorsCount(entity.getDirectorsCount())
+                .composersCount(entity.getComposersCount())
+                .totalMoviesCount(entity.getTotalMoviesCount())
+                .totalPersonsCount(entity.getTotalPersonsCount())
+                .bests(entity.getBests())
+                .build();
+    }
 }

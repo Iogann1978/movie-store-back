@@ -12,6 +12,10 @@ import ru.home.moviestore.repository.MovieRepository;
 import ru.home.moviestore.repository.PersonRepository;
 import ru.home.moviestore.repository.StatRepository;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class StatService {
@@ -20,10 +24,31 @@ public class StatService {
     private final MovieRepository movieRepository;
     private final PersonRepository personRepository;
 
+    public List<StatDto> findAll() {
+        return statRepository.findAll().stream()
+                .map(StatMapper::entityToDto).collect(Collectors.toList());
+    }
+
     public StatDto getStat() {
         Stat stat = statRepository.getStat();
         String bests = getBests();
         return StatMapper.entityToDto(stat, bests);
+    }
+
+    public Optional<StatDto> getStat(Long id) {
+        return statRepository.findById(id).map(StatMapper::entityToDto);
+    }
+
+    public void addStat() {
+        Stat stat = statRepository.getStat();
+        String bests = getBests();
+        stat.setId(System.currentTimeMillis());
+        stat.setBests(bests);
+        statRepository.save(stat);
+    }
+
+    public void deleteStat(Long id) {
+        statRepository.deleteById(id);
     }
 
     private String getBests() {

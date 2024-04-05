@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import ru.home.moviestore.model.Stat;
 
+import java.util.List;
+
 @Repository
 public interface StatRepository extends JpaRepository<Stat, Long> {
     @Query("""
@@ -26,4 +28,7 @@ public interface StatRepository extends JpaRepository<Stat, Long> {
          LEFT JOIN Person p3 ON mp.personId = p3.id AND mp.role = COMPOSER
          """)
     Stat getStat();
+
+    @Query("SELECT s from Stat s ORDER BY s.id DESC")
+    List<Stat> findAll();
 }
